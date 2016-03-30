@@ -1,0 +1,323 @@
+* {
+	margin:0;
+	padding:0;
+	box-sizing: border-box;
+}
+
+body {
+	color: #333;
+	font: 100%/1.5 Georgia,serif;
+}
+
+.wrapper {
+	max-width: 64em;
+	margin: 0 auto;
+	padding: 0 1em;
+}
+
+@media screen and (min-width: 48em) {
+	.wrapper {
+    padding: 0 1.5em;
+	}
+}
+
+.header {
+	margin: 1em 0;
+	overflow: hidden;
+}
+
+
+.header a {
+	display: block;
+	margin: 0 auto;
+	height:5em;
+	width:5em;
+	color: #fff;
+	background: #c50f00;
+	font-size: 2em;
+	text-decoration: none;
+	padding:1em 0 0 1em;
+}
+
+
+.header a:hover {
+	background: #101010;
+}
+
+
+@media screen and (min-width: 40em) {
+	.header {
+	    margin-top: 0;
+	}
+
+	.header a {
+		margin-left: 0;
+	}
+}
+
+ul {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+.content h2:hover {
+	color: #c50f00;
+}
+
+article {
+	margin-bottom: 1em;
+	position:relative;
+}
+
+.imgbox {
+	display: flex;
+	justify-content: space-between;
+}
+
+.content h2 {
+	margin: .6em 0; 
+	float:left;
+}
+
+
+.imgbox {
+	clear: both;
+}
+
+.imgbox li {
+	margin: 0 0 .3em 0;
+}
+
+.imgitem a {
+	display: block;
+	float:left;
+}
+
+.imgitem a:hover {
+	opacity: .7;
+}
+
+.imgitem img {
+	display: block;
+	height: 300px;
+	border-radius: 5px;
+	box-shadow:  0 0 5px rgba(0, 0, 0, .7);
+}
+
+
+ul {
+    padding: 0;
+    margin: 0;
+}
+
+.icon {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 0.25em;
+}
+
+.icon a:link,
+.icon a:visited {
+    display: block;
+    border: 0;
+    padding-left: 28px;
+    color: #c55500;
+}
+
+.icon a:hover,
+.icon a:focus,
+.icon a:active {
+    color: #730800;
+    background: transparent;
+}
+
+.icon:before,
+.icon:after,
+.icon a:before,
+.icon a:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+}
+
+.icon a:before,
+.icon a:after {
+    margin: -8px 0 0;
+    background: #c55500;
+}
+
+.icon a:hover:before,
+.icon a:focus:before,
+.icon a:active:before {
+    background: #730800;
+}
+
+
+
+.like a:before,
+.like a:after {
+    width: 14px;
+    height: 9px;
+    margin-top: -6px;
+    background: #c55500;
+    /* css3 */
+    -webkit-border-top-left-radius: 8px;
+    -webkit-border-bottom-left-radius: 8px;
+    -moz-border-radius: 6px 0 0 6px;
+    border-radius: 6px 0 0 6px;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.like a:after {
+    left: 4px;
+    /* css3 */
+    -webkit-transform: rotate(135deg);
+    -moz-transform: rotate(135deg);
+    -ms-transform: rotate(135deg);
+    -o-transform: rotate(135deg);
+    transform: rotate(135deg);
+}
+
+.like a:hover:after,
+.like a:focus:after,
+.like a:active:after {
+    background: #730800;
+}
+
+.like {
+	position: absolute;
+	top: 0.9em;
+	right: 0;
+}
+
+.pagenav {
+	float:left;
+}
+.pagenav span,.order{
+	color: #cc0d00;
+}
+
+.pagenav span:hover, .pagenav .active,.pagenav .none,.order:hover {
+	color: inherit;
+}
+
+.order {
+	float:right;
+}
+
+footer {
+	clear: both;
+	background: #101010;
+	padding: 2em 0;
+	box-shadow: 0 1px 10px rgba(0, 0, 0, 0.7);
+	margin-top: 1em;
+	border-top: 1px solid #ccc;
+}
+
+footer:after,footer:before{
+
+	content: '';
+	display: block;
+	clear: both;
+}
+
+.submit {
+	float:left;
+	width: 40%;
+}
+
+.aside {
+	float:right;
+	width: 40%;
+	color: #cccccc;
+
+}
+
+.aside a {
+	color: #c00b00;
+}
+
+.aside a:hover {
+	color: #ccc;
+}
+
+.submit input {
+	display: block;
+	border: none;
+	outline: none;
+	width: 60%;
+	margin: .5em 0;
+	height: 3em;
+	color: #fff;
+	background: #1c1c1c;
+	text-indent: .5em;
+}
+
+.submit input:hover {
+	background: #cc0d00;
+}
+
+#feed a {
+	color: #ccc;
+}
+
+.rss {
+	border-top: 1px dashed #ccc;
+	margin-top:1em;
+}
+
+.rss a:before {
+    left: 3px;
+    width: 5px;
+    height: 5px;
+    margin-top: 0;
+    /* css3 */
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.rss a:after {
+    left: 3px;
+    width: 8px;
+    height: 8px;
+    border-width: 5px 5px 0 0;
+    border-style: double;
+    border-color: #c55500;
+    background: transparent;
+    /* css3 */
+    -webkit-border-top-right-radius: 25px;
+    -moz-border-radius: 0 25px 0 0;
+    border-radius: 0 25px 0 0;
+}
+
+.rss a:hover:after,
+.rss a:focus:after,
+.rss a:active:after {
+    border-color: #730800;
+}
+
+.sign-in-with-twitter {
+	display: block;
+	background: url(sign-in-with-twitter-sprite.png) no-repeat;
+	text-indent: -9999px;
+}
+
+.sign-in-with-twitter:hover {
+	background-position: 0 -24px;
+}
+.cutoffmargin{
+	overflow: auto;
+}

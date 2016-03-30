@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>垃圾箱效果</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <style>
+    * {
+    	margin: 0;
+    	padding: 0;
+    }
+    .dustbin {
+    	background-color:#808080;
+    	color:#fff;
+    	width:100px;
+    	height: 300px;
+    	float: left;
+    	font-size:50px;
+    	text-align: center;
+    	line-height: 1.4;
+    }
+    .list {
+    	float: left;
+    	list-style:none;
+    	width:300px;
+    }
+
+    .list-item {
+    	border:2px dashed gray;
+    	margin:10px;
+    	padding:10px;
+    }
+
+    .list-item:hover {
+    	background:lightblue;
+    }
+    #msg{
+		clear:both;
+    }
+
+    </style>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/script.js"></script>
+
+
+</head>
+
+<body>
+
+<div class="dustbin" ondragover="allowDrop(event,this)" ondrop="drop(event)">
+	垃<br>圾<br>箱
+</div>
+<ul class="list">
+	<li class="list-item" draggable='true' ondragstart="drag(event,this)" id="1">列表1</li>
+	<li class="list-item" draggable='true' ondragstart="drag(event,this)" id="2">列表2</li>
+	<li class="list-item" draggable='true' ondragstart="drag(event,this)" id="3">列表3</li>
+	<li class="list-item" draggable='true' ondragstart="drag(event,this)" id="4">列表4</li>
+	<li class="list-item" draggable='true' ondragstart="drag(event,this)" id="5">列表5</li>
+	<li class="list-item" draggable='true' ondragstart="drag(event,this)" id="6">列表6</li>
+</ul>
+<div id="msg">
+	
+</div>
+<script>
+    var dustbin = document.getElementsByClassName('dustbin')[0];
+    var msg = document.getElementById('msg'); 
+    var id;
+    	function drag (e,el) {
+    		
+    		// console.log(x.html)
+    		 e.dataTransfer.setData('Text',e.target.innerHTML);
+    		 id = el.id;
+
+
+    	}
+    	function allowDrop (e,el) {
+    		 e.preventDefault(); 
+    		 el.style.color = "#000";
+    	}
+    	function drop (e) {
+    		 
+    		 dustbin.style.color = "#fff";
+    		 msg.innerHTML += e.dataTransfer.getData('Text')+'被扔进了垃圾箱'+'<br>'; 
+    		 document.getElementById(id).style.display = 'none';
+
+
+    	}
+    </script>
+</body>
+
+</html>

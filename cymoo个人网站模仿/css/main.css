@@ -1,0 +1,261 @@
+body {
+	font-size: 16px;
+	line-height: 1;
+
+}
+
+.container {
+	max-width:1200px;
+	margin: 0 auto;
+}
+
+nav {
+	height:60px;
+	background: #1e171b;
+	color: #fff;
+}
+
+.nav-header {
+	height: 60px;
+	float:left;
+	margin-left: 30px;
+}
+
+.nav-header a {
+	display: inline-block;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	background: url(../img/prince.png);
+	background-size: cover;
+	margin-top:5px;
+}
+
+.nav-bar {
+	float:right;
+}
+
+.nav-bar li, .nav-bar li a {
+	display: inline-block;
+	line-height: 60px;
+	color: #fff;
+	height: 60px;
+}
+
+.nav-bar li {
+	margin-right: 30px;
+}
+
+.nav-bar li span {
+	margin: 0 5px;
+}
+
+.nav-bar li a {
+	transition: all .5s;
+}
+
+.nav-bar li a:hover {
+	opacity: .7;
+}
+
+.nav-bar-icon {
+	float:right;
+	width: 30px;
+	height: 30px;
+	box-sizing: border-box;
+	display: none;
+	margin: 15px 15px;
+	border-radius: 3px;
+	padding:4px 0;
+}
+
+.nav-bar-icon a {
+	display: block;
+	width: 30px;
+	height: 30px;
+}
+
+.nav-bar-icon:hover {
+	background: #333333;
+}
+
+.nav-bar-icon .line {
+	height: 2px;
+	width: 24px;
+	background: #fff;
+	margin: 4px 3px;
+}
+
+/*banner*/
+.banner {
+	height:600px;
+	background: url(../img/sky.jpg) no-repeat;
+	background-position: 50% 50%;
+	background-size: cover;
+	position:relative;
+}
+
+.banner-box {
+	position:absolute;
+	width: 400px;
+	height: 300px;
+	text-align: center;
+	color: #fff;
+	top: 50%;
+	left: 50%;
+	margin-left:-200px;
+	margin-top:-100px;
+	line-height: 1.5;
+}
+
+.banner-box p {
+}
+
+.banner-box h2 {
+	font-size: 40px;
+	font-weight:700;
+}
+
+.banner-box p:nth-of-type(2){
+	font-size: 20px;
+}
+
+/*article*/
+.article h2,.join h2 {
+	color: #888888;
+	font-size: 30px;
+	text-align: center;
+	padding: 80px 0 30px 0;
+}
+
+.article .line {
+	display: inline-block;
+	height: 1px;
+	background: #e4e4e4;
+	width: 30%;
+	vertical-align: middle;
+}
+
+.breakline {
+	text-align:center;
+	margin: 20px 0;
+}
+
+.article .rec {
+	display: inline-block;
+	padding: 0 5px;
+	color: #bababa;
+}
+
+.article-list li {
+	margin-right: 20px;
+	position:relative;
+}
+
+
+.article-list li a,.article-list li {
+	display: inline-block;
+	width: 360px;
+	height: 200px;
+	text-align: center;
+	color: #fff;
+	font-size: 18px;
+}
+
+.article-list li a{
+	padding-top: 100px;		
+	box-sizing: border-box;
+	position:relative;
+	background: #fff;
+}
+
+
+.article-list li:nth-of-type(1) a{
+	background: url(../img/lich-king-1280x800.jpg) center center;
+	background-size: cover;
+}
+
+.article-list li:nth-of-type(2) a{
+	background: url(../img/lk1.jpg) center center;
+	background-size: cover;
+}
+
+.article-list li:nth-of-type(3) a{
+	background: url(../img/jiayou.jpg) center center;
+	background-size: cover;
+}
+
+.mask {
+	position:absolute;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	width: 100%;
+	height: 0;
+	background: #000;
+	transition: all 1s;
+}
+
+.article-list a:hover .mask {
+	height: 100%;
+	opacity: .7;
+}
+
+.article-list li h3 {
+	position:absolute;
+	top: 50%;
+	left: 110px;
+}
+
+.join {
+	text-align: center;
+}
+
+.join p {
+	color: #888888;
+	line-height: 2;
+}
+
+.join .reg {
+	margin-top:20px;
+	margin-bottom:40px;
+	display: inline-block;
+	box-sizing: border-box;
+	border: 1px solid #39b5c3;
+	width:110px;
+	height:40px;
+	line-height: 40px;
+	color: #4ac1cd;
+	border-radius: 3px;
+}
+
+.join .reg:hover {
+	color:#fff;
+	background:#3db9c6;
+}
+
+/*footer*/
+
+.footer,.footer a {
+	text-align: center;
+	color: #888;
+	font-size: 12px;
+}
+
+.footer pre {
+	margin:10px;
+}
+/*media query*/
+@media screen and (max-width:600px){
+	.nav-bar {
+		display: none;
+	}
+
+	.nav-header {
+		margin-left:15px;
+	}
+
+	.nav-bar-icon {
+		display: block;
+	}
+}

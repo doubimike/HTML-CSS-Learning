@@ -1,0 +1,343 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>NEC：更好的CSS方案</title>
+<meta name="keywords" content="CSS方案,CSS规范,CSS框架,CSS代码库,CSS插件,网页制作,前端页面开发,解决方案">
+<meta name="description" content="NEC包括了规范、框架、代码库、插件等内容，致力于为前端开发人员提供高效率高质量的前端页面开发解决方案，提高多人协作效率，也为非专业人员提供快速制作网页的解决方案。">
+<meta name="viewport" content="width=device-width"/>
+<link rel="stylesheet" href="../css/reset.css"/>
+<link rel="stylesheet" href="../css/function.css"/>
+<link rel="stylesheet" href="../css/style.css"/>
+<link rel="shortcut icon" href="../img/favicon.ico"/>
+<link rel="apple-touch-icon" href="../img/touchicon.png"/>
+</head>
+<body class="p-home">
+        <div class="g-hd f-usn">
+                <div class="m-head">
+                    <h1><a href="/">NEC 更好的CSS方案</a></h1>
+                </div>
+        </div>
+
+        <div class="g-nv f-usn">
+            <div class="m-nav">
+                <ul class="f-cb">
+                    <li class="crt" id="sy"><a href="../home.html">首页</a></li>
+                    <li><a href="../guifan.html">规范</a><i></i></li>
+                    <li><a href="../framework.html">框架</a></li>
+                    <li><a href="../library.html">代码库</a></li>
+                    <li><a href="../plugin.html">插件</a></li>
+                    <li><a href="../case.html">案例</a></li>
+                </ul>
+            </div>
+        </div>
+        
+    <div class="g-bd f-cb">    
+        <div class="g-sd">
+            <ul class="m-menu f-usn">
+                <li class="crt"><a href="">分类方法</a></li>
+                <li><a href="">命名规则</a></li>
+                <li><a href="">代码格式</a></li>
+                <li><a href="">优化方案</a></li>
+                <li><a href="css-practice.html">最佳实践</a></li>
+                <li><a href="">典型错误</a></li>
+            </ul>
+        </div>
+        
+        <div class="g-mn">
+            <div class="g-mnc">
+            <div class="m-article">
+            <h1 class="u-ttb2">CSS规范 - 分类方法</h1>
+            <div class="u-line">
+                    <span class="linea"></span>
+                    <span class="lineb"></span>
+            </div>
+
+            <dl>
+                <dt>CSS文件的分类和引用顺序</dt>
+                <dd>
+                    <p>通常，一个项目我们只引用一个CSS，但是对于较大的项目，我们需要把CSS文件进行分类。</p>
+                    <p>我们按照CSS的性质和用途，将CSS文件分成“公共型样式”、“特殊型样式”、“皮肤型样式”，并以此顺序引用（按需求决定是否添加版本号）。</p>
+                    <ol>
+                        <li>公共型样式：包括了以下几个部分：“标签的重置和设置默认值”、“统一调用背景图和清除浮动或其他需统一处理的长样式”、“网站通用布局”、“通用模块和其扩展”、“元件和其扩展”、“功能类样式”、“皮肤类样式”。</li>
+                        <li>特殊型样式：当某个栏目或页面的样式与网站整体差异较大或者维护率较高时，可以独立引用一个样式：“特殊的布局、模块和元件及扩展”、“特殊的功能、颜色和背景”，也可以是某个大型控件或模块的独立样式。</li>
+                        <li>皮肤型样式：如果产品需要换肤功能，那么我们需要将颜色、背景等抽离出来放在这里。</li>
+                    </ol>
+
+                    <table class="syntax">
+                            <tr class="syntax__line">
+                                <td class="syntax__line__number">1</td>
+                                <td class="syntax__line__detail">
+                                    <code class="syntax__line__detail__plain">&lt;</code>
+                                    <code class="syntax__line__detail__keyword">link</code> 
+                                    <code class="syntax__line__detail__attribute">&nbsp;href</code>
+                                    <code class="syntax__line__detail__plain">=</code>
+                                    <code class="syntax__line__detail__string">"assets/css/global.css"</code> 
+                                    <code class="syntax__line__detail__attribute">&nbsp;rel</code>
+                                    <code class="syntax__line__detail__plain">=</code>
+                                    <code class="syntax__line__detail__string">"stylesheet"</code> 
+                                    <code class="syntax__line__detail__attribute">&nbsp;type</code>
+                                    <code class="syntax__line__detail__plain">=</code>
+                                    <code class="syntax__line__detail__string">"text/css"</code>
+                                    <code class="syntax__line__detail__plain">/&gt; </code>
+                                </td>
+                            </tr>
+                            <tr class="syntax__line">
+                                <td class="syntax__line__number">2</td>
+                                <td class="syntax__line__detail">
+                                    <code class="syntax__line__detail__plain">&lt;</code>
+                                    <code class="syntax__line__detail__keyword">link</code> 
+                                    <code class="syntax__line__detail__attribute">&nbsp;href</code>
+                                    <code class="syntax__line__detail__plain">=</code>
+                                    <code class="syntax__line__detail__string">"assets/css/index.css"</code> 
+                                    <code class="syntax__line__detail__attribute">&nbsp;rel</code>
+                                    <code class="syntax__line__detail__plain">=</code>
+                                    <code class="syntax__line__detail__string">"stylesheet"</code> 
+                                    <code class="syntax__line__detail__attribute">&nbsp;type</code>
+                                    <code class="syntax__line__detail__plain">=</code>
+                                    <code class="syntax__line__detail__string">"text/css"</code>
+                                    <code class="syntax__line__detail__plain">/&gt; </code>
+                                </td>
+                            </tr>
+                            <tr class="syntax__line">
+                                <td class="syntax__line__number">3</td>
+                                <td class="syntax__line__detail">
+                                    <code class="syntax__line__detail__plain">&lt;</code>
+                                    <code class="syntax__line__detail__keyword">link</code> 
+                                    <code class="syntax__line__detail__attribute">&nbsp;href</code>
+                                    <code class="syntax__line__detail__plain">=</code>
+                                    <code class="syntax__line__detail__string">"assets/css/skin.css"</code> 
+                                    <code class="syntax__line__detail__attribute">&nbsp;rel</code>
+                                    <code class="syntax__line__detail__plain">=</code>
+                                    <code class="syntax__line__detail__string">"stylesheet"</code> 
+                                    <code class="syntax__line__detail__attribute">&nbsp;type</code>
+                                    <code class="syntax__line__detail__plain">=</code>
+                                    <code class="syntax__line__detail__string">"text/css"</code>
+                                    <code class="syntax__line__detail__plain">/&gt; </code>
+                                </td>
+                            </tr>                  
+                    </table>
+
+                </dd>
+                <dt>CSS内部的分类及其顺序</dt>
+                <dd>
+                    <ol>
+                        <li>重置（reset）和默认（base）（tags）：消除默认样式和浏览器差异，并设置部分标签的初始样式，以减少后面的重复劳动！你可以根据你的网站需求设置！</li>
+                        <li>统一处理：建议在这个位置统一调用背景图（这里指多个布局或模块或元件共用的图）和清除浮动（这里指通用性较高的布局、模块、元件内的清除）等统一设置处理的样式！</li>
+                        <li>布局（grid）（.g-）：将页面分割为几个大块，通常有头部、主体、主栏、侧栏、尾部等！</li>
+                        <li>模块（module）（.m-）：通常是一个语义化的可以重复使用的较大的整体！比如导航、登录、注册、各种列表、评论、搜索等！</li>
+                        <li>元件（unit）（.u-）：通常是一个不可再分的较为小巧的个体，通常被重复用于各种模块中！比如按钮、输入框、loading、图标等！</li>
+                        <li>功能（function）（.f-）：为方便一些常用样式的使用，我们将这些使用率较高的样式剥离出来，按需使用，通常这些选择器具有固定样式表现，比如清除浮动等！不可滥用！</li>
+                        <li>皮肤（skin）（.s-）：如果你需要把皮肤型的样式抽离出来，通常为文字色、背景色（图）、边框色等，非换肤型网站通常只提取文字色！非换肤型网站不可滥用此类！</li>
+                        <li>状态（.z-）：为状态类样式加入前缀，统一标识，方便识别，她只能组合使用或作为后代出现（.u-ipt.z-dis{}，.m-list li.z-sel{}），具体详见<a href="#">命名规则</a>的扩展相关项。</li>
+                    </ol>
+                    <p>功能类和皮肤类样式为表现化的样式，请不要滥用！以上顺序可以按需求适当调整。</p>
+                    <p>以上分类的命名方法详见<a href="#">命名规则</a></p>
+
+                    <table class="syntax">
+                            <tr class="syntax__line">
+                                <td class="syntax__line__number">1</td>
+                                <td class="syntax__line__detail">
+                                    <code class="syntax__line__detail__comments">/* 重置 */</code>
+                                </td>
+                            </tr>
+                            <tr class="syntax__line">
+                                <td class="syntax__line__number">2</td>
+                                <td class="syntax__line__detail">
+                                    <code class="syntax__line__detail__plain">div,p,ul,ol,li{</code>
+                                    <code class="syntax__line__detail__keyword">margin</code> 
+                                    <code class="syntax__line__detail__plain">:</code>
+                                    <code class="syntax__line__detail__value">0;</code> 
+                                    <code class="syntax__line__detail__keyword">padding</code> 
+                                    <code class="syntax__line__detail__plain">:</code>
+                                    <code class="syntax__line__detail__value">0;</code> 
+                                    <code class="syntax__line__detail__plain">}</code>
+                                </td>
+                            </tr>
+                            <tr class="syntax__line">
+                                <td class="syntax__line__number">3</td>
+                                <td class="syntax__line__detail">
+                                    <code class="syntax__line__detail__comments">/* 默认 */</code>
+                                </td>
+                            </tr>  
+                            <tr class="syntax__line">
+                                <td class="syntax__line__number">4</td>
+                                <td class="syntax__line__detail">
+                                    <code class="syntax__line__detail__plain">strong,em{</code>
+                                    <code class="syntax__line__detail__keyword">font-style</code>
+                                    <code class="syntax__line__detail__plain">:</code>
+                                    <code class="syntax__line__detail__value">normal</code>
+                                    <code class="syntax__line__detail__plain">;</code>
+                                    <code class="syntax__line__detail__keyword">font-weight</code>
+                                    <code class="syntax__line__detail__plain">:</code>
+                                    <code class="syntax__line__detail__value">bold</code>
+                                    <code class="syntax__line__detail__plain">;} </code>
+                                </td>
+                            </tr>
+                            <tr class="syntax__line">
+                                <td class="syntax__line__number">5</td>
+                                <td class="syntax__line__detail">
+                                    <code class="syntax__line__detail__comments">/* 统一调用背景图 */</code>
+                                </td>
+                            </tr>
+                            <tr class="syntax__line">
+                                <td class="syntax__line__number">6</td>
+                                <td class="syntax__line__detail">
+                                    <code class="syntax__line__detail__plain">.m-logo a,.m-nav a,.m-nav em{</code>
+                                    <code class="syntax__line__detail__keyword">background</code>
+                                    <code class="syntax__line__detail__plain">:</code>
+                                    <code class="syntax__line__detail__value">url</code>
+                                    <code class="syntax__line__detail__plain">(images/sprite.png) </code>
+                                    <code class="syntax__line__detail__value">no-repeat</code> <code class="syntax__line__detail__value">9999px</code> 
+                                    <code class="syntax__line__detail__value">9999px</code>
+                                    <code class="syntax__line__detail__plain">;} </code>
+                                </td>
+                            </tr>
+                            <tr class="syntax__line">
+                                <td class="syntax__line__number">7</td>
+                                <td class="syntax__line__detail">
+                                    <code class="syntax__line__detail__comments">/* 统一清除浮动 */</code>
+                                </td>
+                            </tr>
+                            <tr class="syntax__line">
+                                <td class="syntax__line__number">8</td>
+                                <td class="syntax__line__detail">
+                                    <code class="syntax__line__detail__plain">.g-bdc:after,.m-dimg ul:after,.u-tab:after{</code>
+                                    <code class="csyntax__line__detail__keyword">display</code>
+                                    <code class="syntax__line__detail__plain">:</code>
+                                    <code class="syntax__line__detail__value">block</code>
+                                    <code class="syntax__line__detail__plain">;</code>
+                                    <code class="syntax__line__detail__keyword">visibility</code>
+                                    <code class="syntax__line__detail__plain">:</code>
+                                    <code class="syntax__line__detail__value">hidden</code>
+                                    <code class="syntax__line__detail__plain">;</code>
+                                    <code class="syntax__line__detail__keyword">clear</code>
+                                    <code class="syntax__line__detail__plain">:</code>
+                                    <code class="syntax__line__detail__value">both</code>
+                                    <code class="syntax__line__detail__plain">;</code>
+                                    <code class="csyntax__line__detail__keyword">height</code>
+                                    <code class="syntax__line__detail__plain">:</code>
+                                    <code class="syntax__line__detail__value">0;</code>
+                                    <code class="syntax__line__detail__keyword">overflow</code>
+                                    <code class="syntax__line__detail__plain">:</code>
+                                    <code class="syntax__line__detail__value">hidden</code>
+                                    <code class="syntax__line__detail__plain">;</code>
+                                    <code class="syntax__line__detail__keyword">content</code>
+                                    <code class="syntax__line__detail__plain">:</code>
+                                    <code class="syntax__line__detail__string">'.'</code>
+                                    <code class="syntax__line__detail__plain">;} </code>
+                                </td>
+                            </tr>
+                            <tr class="syntax__line">
+                                <td class="syntax__line__number">9</td>
+                                <td class="syntax__line__detail">
+                                    <code class="syntax__line__detail__plain">.g-bdc,.m-dimg ul,.u-tab{</code>
+                                    <code class="syntax__line__detail__keyword">zoom</code>
+                                    <code class="syntax__line__detail__plain">:</code>
+                                    <code class="syntax__line__detail__value">1;</code>
+                                    <code class="syntax__line__detail__plain">} </code>
+                                </td>
+                            </tr>
+                            <tr class="syntax__line">
+                                <td class="syntax__line__number">10</td>
+                                <td class="syntax__line__detail">
+                                    <code class="syntax__line__detail__comments">/* 布局 */</code>
+                                </td>
+                            </tr>
+                            <tr class="syntax__line">
+                                <td class="syntax__line__number">11</td>
+                                <td class="syntax__line__detail">
+                                    <code class="syntax__line__detail__plain">.g-sd{</code><code class="syntax__line__detail__keyword">float</code><code class="syntax__line__detail__plain">:</code><code class="syntax__line__detail__value">left</code><code class="syntax__line__detail__plain">;</code><code class="syntax__line__detail__keyword">width</code><code class="syntax__line__detail__plain">:</code><code class="syntax__line__detail__value">300px</code><code class="syntax__line__detail__plain">;} </code>
+                                </td>
+                            </tr>
+                            <tr class="syntax__line">
+                                <td class="syntax__line__number">12</td>
+                                <td class="syntax__line__detail">
+                                    <code class="syntax__line__detail__comments">/* 模块 */</code>
+                                </td>
+                            </tr>
+                            <tr class="syntax__line">
+                                <td class="syntax__line__number">13</td>
+                                <td class="syntax__line__detail">
+                                    <code class="syntax__line__detail__plain">.m-logo{</code><code class="syntax__line__detail__keyword">width</code><code class="syntax__line__detail__plain">:</code><code class="syntax__line__detail__value">200px</code><code class="syntax__line__detail__plain">;</code><code class="syntax__line__detail__keyword">height</code><code class="syntax__line__detail__plain">:</code><code class="syntax__line__detail__value">50px</code><code class="syntax__line__detail__plain">;} </code>
+                                </td>
+                            </tr>
+                            <tr class="syntax__line">
+                                <td class="syntax__line__number">14</td>
+                                <td class="syntax__line__detail">
+                                    <code class="syntax__line__detail__comments">/* 元件 */</code>
+                                </td>
+                            </tr>
+                            <tr class="syntax__line">
+                                <td class="syntax__line__number">15</td>
+                                <td class="syntax__line__detail">
+                                    <code class="syntax__line__detail__plain">.u-btn{</code><code class="syntax__line__detail__keyword">height</code><code class="syntax__line__detail__plain">:</code><code class="syntax__line__detail__value">20px</code><code class="syntax__line__detail__plain">;</code><code class="syntax__line__detail__keyword">border</code><code class="syntax__line__detail__plain">:</code><code class="syntax__line__detail__value">1px</code> <code class="syntax__line__detail__value">solid</code> <code class="syntax__line__detail__value">#333</code><code class="syntax__line__detail__plain">;} </code>
+                                </td>
+                            </tr>
+                            <tr class="syntax__line">
+                                <td class="syntax__line__number">16</td>
+                                <td class="syntax__line__detail">
+                                    <code class="syntax__line__detail__comments">/* 功能 */</code>
+                                </td>
+                            </tr>
+                            <tr class="syntax__line">
+                                <td class="syntax__line__number">17</td>
+                                <td class="syntax__line__detail">
+                                    <code class="syntax__line__detail__plain">.f-tac{</code><code class="syntax__line__detail__keyword">text-align</code><code class="syntax__line__detail__plain">:</code><code class="syntax__line__detail__value">center</code><code class="syntax__line__detail__plain">;} </code>
+                                </td>
+                            </tr>
+                            <tr class="syntax__line">
+                                <td class="syntax__line__number">18</td>
+                                <td class="syntax__line__detail">
+                                    <code class="syntax__line__detail__comments">/* 皮肤 */</code>
+                                </td>
+                            </tr>
+                            <tr class="syntax__line">
+                                <td class="syntax__line__number">19</td>
+                                <td class="syntax__line__detail">
+                                    <code class="syntax__line__detail__plain">.s-fc,a.s-fc:hover{</code><code class="syntax__line__detail__keyword">color</code><code class="syntax__line__detail__plain">:</code><code class="syntax__line__detail__value">#fff</code><code class="syntax__line__detail__plain">;} </code>
+                                </td>
+                            </tr>                
+                    </table>
+                    </dd>
+                    </dl>
+                    </div>
+
+
+                
+
+
+            </div><!-- endof m-article  -->
+            </div><!-- endofg-mnc   -->  
+        </div> <!-- endofg-mn -->
+    </div><!-- endofg-bd -->
+
+
+    <div class="g-ft">
+        <div class="g-in">
+        <div class="test">
+            <ul class="m-ft f-cb">
+                <li><a href="about.html">关于我们</a>|</li>
+                <li><a href="license.txt">MIT开源协议</a>|</li>
+                <li><a href="mailto:nehzwd@163.com">意见反馈</a>|</li>
+                <li><a href="http://hr.163.com/getPositionById.do?rms=1&id=236">加入我们</a>|</li>
+                <li><a href="http://nej.netease.com/">NEJ:更好的JS解决方案</a></li>
+            </ul>
+            <p class="m-cprt">Copyright © 1997-2013 NetEase. All Rights Reserved.</p>
+        </div>
+        </div>
+    </div>
+
+        <div class="m-flw f-usn">
+                <ul>
+                    <li><a class="flw1" href="#">网易微博</a></li>
+                    <li><a class="flw2" href="#">新浪微博</a></li>
+                    <li><a class="flw3" href="#">QQ微博</a></li>
+                    <li><a class="flw4" href="#">人人网</a></li>
+                    <li><a class="flw5" href="#">豆瓣网</a></li>
+                </ul>
+        </div>
+
+
+</body>
+</html>

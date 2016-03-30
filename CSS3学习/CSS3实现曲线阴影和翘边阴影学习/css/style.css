@@ -1,0 +1,83 @@
+body {
+	font-size: 20px;
+}
+
+body, ul {
+	margin:0;
+	padding:0;
+	list-style: none;
+}
+
+.wrap {
+	width: 70%;
+	height: 200px;
+	margin: 50px auto;
+}
+
+.wrap h1 {
+	text-align: center;
+	line-height: 200px;
+	position: relative;
+}
+
+.effect {
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+	position: relative;
+	background: #fff;
+}
+
+.effect:after, .effect:before {
+	content: "";
+	background: #fff;
+	display: block;
+	top: 50%;
+	bottom: 0;
+	left: 10px;
+	right: 10px;
+	position:absolute;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+	border-radius: 100px/10px;
+	z-index: -100;
+}
+
+.box {
+	width:980px;
+	margin: 20px  auto;
+	font-size: 0;
+}
+
+.box li {
+	width:300px;
+	float: left;
+	margin: 20px 10px;
+	border:2px solid #efefef;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27), 0 0 60px rgba(0, 0, 0, 0.1) inset;
+	position:relative;
+}
+
+.box li:before {
+	content: '';
+	position:absolute;
+	width:90%;
+	height: 80%;
+	left: 20px;
+	bottom: 8px;
+	background: #efefef;
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+	transform: skewX(-12deg) rotate(-4deg);
+	z-index: -2;
+}
+
+.box li:after {
+	content: '';
+	position:absolute;
+	width:90%;
+	height: 80%;
+	right: 20px;
+	bottom: 8px;
+	background: #efefef;
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+	transform: skewX(12deg) rotate(4deg);
+	z-index: -2;
+}
+

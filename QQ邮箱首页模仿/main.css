@@ -1,0 +1,215 @@
+/* reset */
+body {
+	margin: 0;
+}
+
+ul {
+	margin: 0;
+	list-style-type: none;
+}
+
+button {
+	border: 0;
+	background: transparent;
+}
+
+img {
+	border: none;
+}
+
+
+/* public library */
+.r {
+	float: right;
+}
+
+.l {
+	float: left;
+}
+
+.tc {
+	text-align: center;
+}
+
+.db {
+	display: block;
+}
+
+/* project general */
+body {
+	background: #fff;
+	color: #000;
+	line-height: 1.5;
+	font-family: "Microsoft Yahei", sans-serif;
+	font-size: 12px;
+}
+
+a {
+	text-decoration: none;
+	color: #285586;
+}
+
+/* project library */
+.c-light {
+	color: #888;
+}
+
+/* project layout */
+.wd900 {
+	width: 900px;
+	margin: 0 auto;
+}
+
+.wd810 {
+	width: 810px;
+	margin: 0 auto;
+	overflow: hidden;
+	position: relative;
+}
+
+.wd {
+	width: 960px;
+	margin: 0 auto;
+}
+
+.login-panel, 
+.qrscan-panel {
+	float: left;
+	box-sizing: border-box;
+}
+
+.login-panel {
+	width: 480px;
+	padding-right: 66px;
+}
+
+.qrscan-panel {
+	width: 300px;
+	padding-left: 66px;
+}
+
+.middle-line {
+	position: absolute;
+	left: 480px;
+	margin-left: -.5px;
+	width: 1px;
+	height: 423px;
+	background: url(img/login_middle_line25d91c.png);	
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+/* project ui */
+
+/* project specific */
+/* header */
+.topheight {
+	height: 70px;
+}
+
+.qqmaillogo {
+	width: 280px;
+	margin-top: 18px;
+	padding-left: 4px;
+	margin-bottom: 10px;
+}
+
+.top-link a, .nav-page-bottom a {
+	color: #5c5c5c;
+}
+
+.top-link {
+	margin-top: 40px;
+	font-size: 14px;
+}
+
+/* login-wrap */
+.login-wrap {
+	background: url(img/login_background25dcc7.png) 50% 50% no-repeat;
+	min-height: 466px;
+	padding-top: 40px;
+	padding-bottom: 28px;
+}
+
+.login-panel .title,
+.login-panel .input-box {
+	background: #fff;
+}
+
+.login-panel {
+	font-size: 14px;
+	margin: 30px 0;
+}
+
+.login-panel .title {
+	line-height: 59px;
+	font-size: 16px;
+	color: #242424;
+	text-indent: 25px;
+	border-bottom: 1px solid #CACACA;
+}
+
+.input-box {
+	padding: 45px 50px;
+}
+
+.input-box input[type=text] {
+	display: block;
+	width: 100%;
+	height: 40px;
+	border: 1px solid #CACACA;
+	box-sizing: border-box;
+	padding-left: 10px;
+	font-size: 14px;
+}
+
+.annotation {
+	color: #aaa;
+}
+
+.auto-login {
+	line-height: 45px;
+}
+
+.btn-login {
+	display: block;
+	width: 100%;
+	color: #fff;
+	font-weight: bold;
+	background: #3CC63C;
+	height: 40px;
+	font-size: 16px;
+	border: 1px solid #2ad949;
+}
+
+.pw-related {
+	line-height: 45px;
+}
+
+.pw-related img {
+	vertical-align: middle;
+	margin-top: -3px;
+}
+
+/* qrscan-panel */
+.qrscan-panel {
+	height: 466px;
+	overflow: hidden;
+}
+
+.qrscan-panel .title {
+	font-size: 16px;
+	color: #fff;
+	margin-bottom: 20px;
+}
+/* copyright */
+
+.copyright {
+	font-size: 11px;
+}
+
+.nav-page-bottom {
+	margin-top: 13px;
+	line-height: 24px;
+}
+

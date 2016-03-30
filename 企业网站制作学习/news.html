@@ -1,0 +1,707 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>企业网站实例</title>
+<meta name="keywords" content=""/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width"/>
+<link rel="stylesheet" href="css/style.css"/>
+<link rel="stylesheet" href="css/function.css"/>
+<script src="js/setHomeSetFav.js" charset="gb2312"></script>
+
+</head>
+<body>
+    <div class="top">
+        <div class="top__content">
+            <ul>
+                <li><a href="#">联系我们</a></li>     
+                <li><a href="#" onclick="AddFavorite(window.location,document.title)">加入收藏</a></li>
+                <li><a href="#" onclick="SetHome(window.location)">设为首页</a></li>       
+            </ul>
+        </div>
+    </div> <!-- endoftop -->
+
+    <div class="wrap">
+        <div class="logo">
+            <div class="logo__left"><img src="i/logo.jpg" alt="慕课网">
+            </div>
+            <div class="logo__right">
+                <img src="i/tel.jpg" alt="服务热线">24小时服务热线：<span class="tel">123-456-7890</span>
+            </div>
+        </div> <!-- endoflogo -->
+
+        <div class="nav">
+            <div class="nav__left"></div>
+            <div class="nav__mid">
+                <div class="nav__mid__left">
+                    <ul>
+                        <li><a href="#">首页</a></li>
+                        <li><a href="#">关于慕课</a></li>
+                        <li><a href="#">新闻动态</a></li>
+                        <li><a href="#">课程中心</a></li>
+                        <li><a href="#">在线课程</a></li>
+                        <li><a href="#">人才招聘</a></li>
+                    </ul>
+                </div>
+                <div class="nav__mid__right">
+                    <form action="" method="post">
+                        <input type="text" class="search_text">
+                    </form>
+                </div>
+            </div> <!-- endofnav__mid -->
+            <div class="nav__right"></div>
+        </div> <!-- endofnav -->
+        
+        <div class="ad" style="height:243px;">
+            <img src="i/ad.jpg" alt="">
+        </div> <!-- endofad -->
+
+        <div class="list_main">
+            <div class="news_type">
+                <h2>新闻中心</h2>
+                <div class="news_type_content">
+                    <ul>
+                        <li><a href="#">公司新闻</a></li>
+                        <li><a href="#">行业新闻</a></li>
+                        <li><a href="#">媒体报道</a></li>
+                        <li><a href="#">活动专题</a></li>
+                        <li><a href="#">精彩视频</a></li>
+                        <li><a href="#">资源下载</a></li>
+                        <li><a href="#">公司内刊</a></li>
+                    </ul>
+                </div>
+            </div><!-- endofnews_type -->
+            <div class="list_box">
+                <h2>新闻中心</h2>
+                <h1>【干货】自己动手打造专属代码生成工具（完结篇）</h1>
+                <p class="list_box_newsInfo">发布人：Admin 发布时间：20151219 浏览：30000次</p>
+                <div class="list_box_newsContent">
+                    <p><img src="http://img.mukewang.com/5673d9a100019d9005410737.png" alt="图片描述"><br>
+                    <strong>神兽坐镇！！</strong><br>
+                    ...<br>
+                    ...<br>
+                    OK，进入主题，上篇说到了代码生成工具，只是演示了一下简单的操作流程。那么，说好了，这篇是贴码文，在贴码之前先大体说下原理吧（大神止步吧...）......</p>
+                    <p>说到需要生成文件，不得不说说在项目开发中那些让码农们头疼的事：在项目开发中最让人头疼的就是把数据库表字段对应成java实体属性，一个数据库如果有几十个表，单单靠手写java实体的话，等项目上线了，估计实体刚建完<img src="http://img.mukewang.com/5673d413000185b700700073.jpg" alt="图片描述">...<br>
+                    再一个就是对数据库进行操作的mapper文件，一般的业务上都包括<strong>增删改查(批/单)</strong>，以及对应实体的<strong>resultMap</strong>定义。此项工作如果没有工具的帮助，就相当于重复造轮子。因为增删改查(批/单)区别就在于表名不同、resultMap区别就在于字段不同<br>
+                    ......<br>
+                    以上只是简单的举证了一下（不要嫌俺啰嗦，俺只是深恶痛绝...），说回俺这个代码生成工具，原理莫过于获取系统中的数据库列表，根据数据库获取单个数据库下的所有数据表，最后一步是最重要也是最麻烦的，要获取数据表中的字段、字段类型、字段注释等等，因为要根据字段类型生成对应的java类型变量。<br>
+                    <strong>（神马~~！！这TM就是所谓的原理？酱简单？你TM是不是唬我？）</strong><br>
+                    没错，就是这么简单，天地良心<br>
+                    <img src="http://img.mukewang.com/5673d5380001d2eb05900093.gif" alt="图片描述"><br>
+                    下面到重点部分了，贴码！！</p>
+                    <ul>
+                    <li>获取所有数据库</li>
+                    </ul>
+                    <pre class="prettyprint"><code><span class="com">/**
+                         * @Description 获取数据库列表
+                         * @author zhangyd
+                         * @date 2015年12月9日 上午10:17:33
+                         * @param mybatisSqlForm
+                         * @return
+                         */</span><span class="pln">
+                        </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">List</span><span class="pun">&lt;</span><span class="typ">String</span><span class="pun">&gt;</span><span class="pln"> getDbNameList</span><span class="pun">(</span><span class="typ">TableForm</span><span class="pln"> mybatisSqlForm</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                            </span><span class="typ">List</span><span class="pun">&lt;</span><span class="typ">String</span><span class="pun">&gt;</span><span class="pln"> list </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">ArrayList</span><span class="pun">&lt;</span><span class="typ">String</span><span class="pun">&gt;();</span><span class="pln">
+                            </span><span class="typ">ResultSet</span><span class="pln"> rs </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">;</span><span class="pln">
+                            </span><span class="typ">Connection</span><span class="pln"> conn </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">;</span><span class="pln">
+                            </span><span class="typ">Statement</span><span class="pln"> statement </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">;</span><span class="pln">
+                            </span><span class="kwd">try</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                </span><span class="typ">String</span><span class="pln"> sql </span><span class="pun">=</span><span class="pln"> </span><span class="str">"show databases"</span><span class="pun">;</span><span class="pln">
+                                rs </span><span class="pun">=</span><span class="pln"> getResultSet</span><span class="pun">(</span><span class="pln">conn</span><span class="pun">,</span><span class="pln"> statement</span><span class="pun">,</span><span class="pln"> mybatisSqlForm</span><span class="pun">.</span><span class="pln">getDbAddress</span><span class="pun">(),</span><span class="pln"> mybatisSqlForm</span><span class="pun">.</span><span class="pln">getDbLoginName</span><span class="pun">(),</span><span class="pln">
+                                        mybatisSqlForm</span><span class="pun">.</span><span class="pln">getDbPassword</span><span class="pun">(),</span><span class="pln"> sql</span><span class="pun">.</span><span class="pln">toString</span><span class="pun">());</span><span class="pln">
+                                </span><span class="kwd">while</span><span class="pln"> </span><span class="pun">(</span><span class="pln">rs</span><span class="pun">.</span><span class="kwd">next</span><span class="pun">())</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                    list</span><span class="pun">.</span><span class="pln">add</span><span class="pun">(</span><span class="pln">rs</span><span class="pun">.</span><span class="pln">getString</span><span class="pun">(</span><span class="lit">1</span><span class="pun">));</span><span class="pln">
+                                </span><span class="pun">}</span><span class="pln">
+                            </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">catch</span><span class="pln"> </span><span class="pun">(</span><span class="typ">SQLException</span><span class="pln"> e</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                e</span><span class="pun">.</span><span class="pln">printStackTrace</span><span class="pun">();</span><span class="pln">
+                            </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">finally</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                </span><span class="kwd">try</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                    </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">rs </span><span class="pun">!=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                        rs</span><span class="pun">.</span><span class="pln">close</span><span class="pun">();</span><span class="pln">
+                                    </span><span class="pun">}</span><span class="pln">
+                                </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">catch</span><span class="pln"> </span><span class="pun">(</span><span class="typ">SQLException</span><span class="pln"> e</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                    e</span><span class="pun">.</span><span class="pln">printStackTrace</span><span class="pun">();</span><span class="pln">
+                                </span><span class="pun">}</span><span class="pln">
+                                </span><span class="kwd">try</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                    </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">statement </span><span class="pun">!=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">)</span><span class="pln">
+                                        statement</span><span class="pun">.</span><span class="pln">close</span><span class="pun">();</span><span class="pln">
+                                </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">catch</span><span class="pln"> </span><span class="pun">(</span><span class="typ">SQLException</span><span class="pln"> e</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                    e</span><span class="pun">.</span><span class="pln">printStackTrace</span><span class="pun">();</span><span class="pln">
+                                </span><span class="pun">}</span><span class="pln">
+                                </span><span class="kwd">try</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                    </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">conn </span><span class="pun">!=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">)</span><span class="pln">
+                                        conn</span><span class="pun">.</span><span class="pln">close</span><span class="pun">();</span><span class="pln">
+                                </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">catch</span><span class="pln"> </span><span class="pun">(</span><span class="typ">SQLException</span><span class="pln"> e</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                    e</span><span class="pun">.</span><span class="pln">printStackTrace</span><span class="pun">();</span><span class="pln">
+                                </span><span class="pun">}</span><span class="pln">
+                            </span><span class="pun">}</span><span class="pln">
+                            </span><span class="kwd">return</span><span class="pln"> list</span><span class="pun">;</span><span class="pln">
+                        </span><span class="pun">}</span></code></pre>
+                    <p>获取数据库也是用的最基本的sql语句：show databases;</p>
+                    <ul>
+                    <li>获取数据库表列表</li>
+                    </ul>
+                    <pre class="prettyprint"><code><span class="com">/**
+                         * @Description 获取数据库表列表
+                         * @author zhangyd
+                         * @date 2015年12月9日 上午10:17:46
+                         * @param mybatisSqlForm
+                         * @return
+                         */</span><span class="pln">
+                        </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">List</span><span class="pun">&lt;</span><span class="typ">String</span><span class="pun">&gt;</span><span class="pln"> getTableNameList</span><span class="pun">(</span><span class="typ">TableForm</span><span class="pln"> mybatisSqlForm</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                            </span><span class="typ">List</span><span class="pun">&lt;</span><span class="typ">String</span><span class="pun">&gt;</span><span class="pln"> list </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">ArrayList</span><span class="pun">&lt;</span><span class="typ">String</span><span class="pun">&gt;();</span><span class="pln">
+                            </span><span class="typ">ResultSet</span><span class="pln"> rs </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">;</span><span class="pln">
+                            </span><span class="typ">Connection</span><span class="pln"> conn </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">;</span><span class="pln">
+                            </span><span class="typ">Statement</span><span class="pln"> statement </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">;</span><span class="pln">
+                            </span><span class="kwd">try</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                </span><span class="typ">String</span><span class="pln"> sql </span><span class="pun">=</span><span class="pln"> </span><span class="str">"SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '"</span><span class="pln">
+                                        </span><span class="pun">+</span><span class="pln"> mybatisSqlForm</span><span class="pun">.</span><span class="pln">getSelectedDbNames</span><span class="pun">()</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="str">"'"</span><span class="pun">;</span><span class="pln">
+                                rs </span><span class="pun">=</span><span class="pln"> getResultSet</span><span class="pun">(</span><span class="pln">conn</span><span class="pun">,</span><span class="pln"> statement</span><span class="pun">,</span><span class="pln"> mybatisSqlForm</span><span class="pun">.</span><span class="pln">getDbAddress</span><span class="pun">(),</span><span class="pln"> mybatisSqlForm</span><span class="pun">.</span><span class="pln">getDbLoginName</span><span class="pun">(),</span><span class="pln">
+                                        mybatisSqlForm</span><span class="pun">.</span><span class="pln">getDbPassword</span><span class="pun">(),</span><span class="pln"> sql</span><span class="pun">.</span><span class="pln">toString</span><span class="pun">());</span><span class="pln">
+                                </span><span class="kwd">while</span><span class="pln"> </span><span class="pun">(</span><span class="pln">rs</span><span class="pun">.</span><span class="kwd">next</span><span class="pun">())</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                    list</span><span class="pun">.</span><span class="pln">add</span><span class="pun">(</span><span class="pln">rs</span><span class="pun">.</span><span class="pln">getString</span><span class="pun">(</span><span class="lit">1</span><span class="pun">));</span><span class="pln">
+                                </span><span class="pun">}</span><span class="pln">
+                            </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">catch</span><span class="pln"> </span><span class="pun">(</span><span class="typ">SQLException</span><span class="pln"> e</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                e</span><span class="pun">.</span><span class="pln">printStackTrace</span><span class="pun">();</span><span class="pln">
+                            </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">finally</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                </span><span class="kwd">try</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                    </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">rs </span><span class="pun">!=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                        rs</span><span class="pun">.</span><span class="pln">close</span><span class="pun">();</span><span class="pln">
+                                    </span><span class="pun">}</span><span class="pln">
+                                </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">catch</span><span class="pln"> </span><span class="pun">(</span><span class="typ">SQLException</span><span class="pln"> e</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                    e</span><span class="pun">.</span><span class="pln">printStackTrace</span><span class="pun">();</span><span class="pln">
+                                </span><span class="pun">}</span><span class="pln">
+                                </span><span class="kwd">try</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                    </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">statement </span><span class="pun">!=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">)</span><span class="pln">
+                                        statement</span><span class="pun">.</span><span class="pln">close</span><span class="pun">();</span><span class="pln">
+                                </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">catch</span><span class="pln"> </span><span class="pun">(</span><span class="typ">SQLException</span><span class="pln"> e</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                    e</span><span class="pun">.</span><span class="pln">printStackTrace</span><span class="pun">();</span><span class="pln">
+                                </span><span class="pun">}</span><span class="pln">
+                                </span><span class="kwd">try</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                    </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">conn </span><span class="pun">!=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">)</span><span class="pln">
+                                        conn</span><span class="pun">.</span><span class="pln">close</span><span class="pun">();</span><span class="pln">
+                                </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">catch</span><span class="pln"> </span><span class="pun">(</span><span class="typ">SQLException</span><span class="pln"> e</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                    e</span><span class="pun">.</span><span class="pln">printStackTrace</span><span class="pun">();</span><span class="pln">
+                                </span><span class="pun">}</span><span class="pln">
+                            </span><span class="pun">}</span><span class="pln">
+                            </span><span class="kwd">return</span><span class="pln"> list</span><span class="pun">;</span><span class="pln">
+                        </span><span class="pun">}</span></code></pre>
+                    <ul>
+                    <li>获取字段名 列表</li>
+                    </ul>
+                    <pre class="prettyprint"><code><span class="com">/**
+                         * @Description 获取字段名 列表
+                         * @author zhangyd
+                         * @date 2015年12月9日 上午10:18:07
+                         * @param mybatisSqlForm
+                         * @return
+                         */</span><span class="pln">
+                        </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">List</span><span class="pun">&lt;</span><span class="typ">String</span><span class="pun">&gt;</span><span class="pln"> getColumnNameList</span><span class="pun">(</span><span class="typ">TableForm</span><span class="pln"> mybatisSqlForm</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                            </span><span class="typ">List</span><span class="pun">&lt;</span><span class="typ">String</span><span class="pun">&gt;</span><span class="pln"> columnNames </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">ArrayList</span><span class="pun">&lt;</span><span class="typ">String</span><span class="pun">&gt;();</span><span class="pln">
+                            </span><span class="typ">ResultSet</span><span class="pln"> rs </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">;</span><span class="pln">
+                            </span><span class="typ">Connection</span><span class="pln"> conn </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">;</span><span class="pln">
+                            </span><span class="typ">Statement</span><span class="pln"> statement </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">;</span><span class="pln">
+                            </span><span class="kwd">try</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                </span><span class="typ">StringBuffer</span><span class="pln"> sql </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">StringBuffer</span><span class="pun">();</span><span class="pln">
+                                sql</span><span class="pun">.</span><span class="pln">append</span><span class="pun">(</span><span class="pln">
+                                        </span><span class="str">"SELECT DISTINCT column_name cloumnName,data_type type,column_comment comment,column_key FROM Information_schema.COLUMNS "</span><span class="pun">);</span><span class="pln">
+                                sql</span><span class="pun">.</span><span class="pln">append</span><span class="pun">(</span><span class="str">"WHERE TABLE_NAME = '"</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> mybatisSqlForm</span><span class="pun">.</span><span class="pln">getSelectedTableNames</span><span class="pun">()</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="str">"' and TABLE_SCHEMA = '"</span><span class="pln">
+                                        </span><span class="pun">+</span><span class="pln"> mybatisSqlForm</span><span class="pun">.</span><span class="pln">getSelectedDbNames</span><span class="pun">()</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="str">"'"</span><span class="pun">);</span><span class="pln">
+                                rs </span><span class="pun">=</span><span class="pln"> getResultSet</span><span class="pun">(</span><span class="pln">conn</span><span class="pun">,</span><span class="pln"> statement</span><span class="pun">,</span><span class="pln"> mybatisSqlForm</span><span class="pun">.</span><span class="pln">getDbAddress</span><span class="pun">(),</span><span class="pln"> mybatisSqlForm</span><span class="pun">.</span><span class="pln">getDbLoginName</span><span class="pun">(),</span><span class="pln">
+                                        mybatisSqlForm</span><span class="pun">.</span><span class="pln">getDbPassword</span><span class="pun">(),</span><span class="pln"> sql</span><span class="pun">.</span><span class="pln">toString</span><span class="pun">());</span><span class="pln">
+                                </span><span class="kwd">while</span><span class="pln"> </span><span class="pun">(</span><span class="pln">rs</span><span class="pun">.</span><span class="kwd">next</span><span class="pun">())</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                    columnNames</span><span class="pun">.</span><span class="pln">add</span><span class="pun">(</span><span class="pln">rs</span><span class="pun">.</span><span class="pln">getString</span><span class="pun">(</span><span class="lit">1</span><span class="pun">));</span><span class="pln">
+                                </span><span class="pun">}</span><span class="pln">
+                            </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">catch</span><span class="pln"> </span><span class="pun">(</span><span class="typ">SQLException</span><span class="pln"> e</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                e</span><span class="pun">.</span><span class="pln">printStackTrace</span><span class="pun">();</span><span class="pln">
+                            </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">finally</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                </span><span class="kwd">try</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                    </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">rs </span><span class="pun">!=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                        rs</span><span class="pun">.</span><span class="pln">close</span><span class="pun">();</span><span class="pln">
+                                    </span><span class="pun">}</span><span class="pln">
+                                </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">catch</span><span class="pln"> </span><span class="pun">(</span><span class="typ">SQLException</span><span class="pln"> e</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                    e</span><span class="pun">.</span><span class="pln">printStackTrace</span><span class="pun">();</span><span class="pln">
+                                </span><span class="pun">}</span><span class="pln">
+                                </span><span class="kwd">try</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                    </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">statement </span><span class="pun">!=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">)</span><span class="pln">
+                                        statement</span><span class="pun">.</span><span class="pln">close</span><span class="pun">();</span><span class="pln">
+                                </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">catch</span><span class="pln"> </span><span class="pun">(</span><span class="typ">SQLException</span><span class="pln"> e</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                    e</span><span class="pun">.</span><span class="pln">printStackTrace</span><span class="pun">();</span><span class="pln">
+                                </span><span class="pun">}</span><span class="pln">
+                                </span><span class="kwd">try</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                    </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">conn </span><span class="pun">!=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">)</span><span class="pln">
+                                        conn</span><span class="pun">.</span><span class="pln">close</span><span class="pun">();</span><span class="pln">
+                                </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">catch</span><span class="pln"> </span><span class="pun">(</span><span class="typ">SQLException</span><span class="pln"> e</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                    e</span><span class="pun">.</span><span class="pln">printStackTrace</span><span class="pun">();</span><span class="pln">
+                                </span><span class="pun">}</span><span class="pln">
+                            </span><span class="pun">}</span><span class="pln">
+                            </span><span class="kwd">return</span><span class="pln"> columnNames</span><span class="pun">;</span><span class="pln">
+                        </span><span class="pun">}</span></code></pre>
+                    <ul>
+                    <li>获取数据表详情（字段类型、注释等）</li>
+                    </ul>
+                    <pre class="prettyprint"><code><span class="com">/**
+                         * @Description 获取数据表详情
+                         * @author zhangyd
+                         * @date 2015年12月9日 上午10:19:19
+                         * @param mybatisSqlForm
+                         * @return
+                         */</span><span class="pln">
+                        </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">List</span><span class="pun">&lt;</span><span class="typ">Variable</span><span class="pun">&gt;</span><span class="pln"> getTableInfo</span><span class="pun">(</span><span class="typ">TableForm</span><span class="pln"> mybatisSqlForm</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                            </span><span class="typ">List</span><span class="pun">&lt;</span><span class="typ">Variable</span><span class="pun">&gt;</span><span class="pln"> tableInfo </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">ArrayList</span><span class="pun">&lt;</span><span class="typ">Variable</span><span class="pun">&gt;();</span><span class="pln">
+                            </span><span class="typ">Connection</span><span class="pln"> conn </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">;</span><span class="pln">
+                            </span><span class="typ">Statement</span><span class="pln"> statement </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">;</span><span class="pln">
+                            </span><span class="typ">ResultSet</span><span class="pln"> rs </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">;</span><span class="pln">
+                            </span><span class="kwd">try</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                </span><span class="typ">StringBuffer</span><span class="pln"> sql </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">StringBuffer</span><span class="pun">();</span><span class="pln">
+                                sql</span><span class="pun">.</span><span class="pln">append</span><span class="pun">(</span><span class="pln">
+                                        </span><span class="str">"SELECT DISTINCT column_name cloumnName,data_type type,column_comment comment,column_key FROM Information_schema.COLUMNS "</span><span class="pun">);</span><span class="pln">
+                                sql</span><span class="pun">.</span><span class="pln">append</span><span class="pun">(</span><span class="str">"WHERE TABLE_NAME = '"</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> mybatisSqlForm</span><span class="pun">.</span><span class="pln">getSelectedTableNames</span><span class="pun">()</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="str">"' and TABLE_SCHEMA = '"</span><span class="pln">
+                                        </span><span class="pun">+</span><span class="pln"> mybatisSqlForm</span><span class="pun">.</span><span class="pln">getSelectedDbNames</span><span class="pun">()</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="str">"'"</span><span class="pun">);</span><span class="pln">
+                                rs </span><span class="pun">=</span><span class="pln"> getResultSet</span><span class="pun">(</span><span class="pln">conn</span><span class="pun">,</span><span class="pln"> statement</span><span class="pun">,</span><span class="pln"> mybatisSqlForm</span><span class="pun">.</span><span class="pln">getDbAddress</span><span class="pun">(),</span><span class="pln"> mybatisSqlForm</span><span class="pun">.</span><span class="pln">getDbLoginName</span><span class="pun">(),</span><span class="pln">
+                                        mybatisSqlForm</span><span class="pun">.</span><span class="pln">getDbPassword</span><span class="pun">(),</span><span class="pln"> sql</span><span class="pun">.</span><span class="pln">toString</span><span class="pun">());</span><span class="pln">
+                                </span><span class="kwd">while</span><span class="pln"> </span><span class="pun">(</span><span class="pln">rs</span><span class="pun">.</span><span class="kwd">next</span><span class="pun">())</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                    </span><span class="typ">Variable</span><span class="pln"> variable </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Variable</span><span class="pun">();</span><span class="pln">
+                                    variable</span><span class="pun">.</span><span class="pln">setColumnName</span><span class="pun">(</span><span class="pln">rs</span><span class="pun">.</span><span class="pln">getString</span><span class="pun">(</span><span class="str">"cloumnName"</span><span class="pun">));</span><span class="pln">
+                                    variable</span><span class="pun">.</span><span class="pln">setType</span><span class="pun">(</span><span class="pln">rs</span><span class="pun">.</span><span class="pln">getString</span><span class="pun">(</span><span class="str">"type"</span><span class="pun">));</span><span class="pln">
+                                    variable</span><span class="pun">.</span><span class="pln">setComment</span><span class="pun">(</span><span class="pln">rs</span><span class="pun">.</span><span class="pln">getString</span><span class="pun">(</span><span class="str">"comment"</span><span class="pun">));</span><span class="pln">
+                                    variable</span><span class="pun">.</span><span class="pln">setColumnKey</span><span class="pun">(</span><span class="pln">rs</span><span class="pun">.</span><span class="pln">getString</span><span class="pun">(</span><span class="str">"column_key"</span><span class="pun">));</span><span class="pln">
+                                    tableInfo</span><span class="pun">.</span><span class="pln">add</span><span class="pun">(</span><span class="pln">variable</span><span class="pun">);</span><span class="pln">
+                                </span><span class="pun">}</span><span class="pln">
+                            </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">catch</span><span class="pln"> </span><span class="pun">(</span><span class="typ">SQLException</span><span class="pln"> e</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                e</span><span class="pun">.</span><span class="pln">printStackTrace</span><span class="pun">();</span><span class="pln">
+                            </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">finally</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                </span><span class="kwd">try</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                    </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">rs </span><span class="pun">!=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                        rs</span><span class="pun">.</span><span class="pln">close</span><span class="pun">();</span><span class="pln">
+                                    </span><span class="pun">}</span><span class="pln">
+                                </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">catch</span><span class="pln"> </span><span class="pun">(</span><span class="typ">SQLException</span><span class="pln"> e</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                    e</span><span class="pun">.</span><span class="pln">printStackTrace</span><span class="pun">();</span><span class="pln">
+                                </span><span class="pun">}</span><span class="pln">
+                                </span><span class="kwd">try</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                    </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">statement </span><span class="pun">!=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">)</span><span class="pln">
+                                        statement</span><span class="pun">.</span><span class="pln">close</span><span class="pun">();</span><span class="pln">
+                                </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">catch</span><span class="pln"> </span><span class="pun">(</span><span class="typ">SQLException</span><span class="pln"> e</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                    e</span><span class="pun">.</span><span class="pln">printStackTrace</span><span class="pun">();</span><span class="pln">
+                                </span><span class="pun">}</span><span class="pln">
+                                </span><span class="kwd">try</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                    </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">conn </span><span class="pun">!=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">)</span><span class="pln">
+                                        conn</span><span class="pun">.</span><span class="pln">close</span><span class="pun">();</span><span class="pln">
+                                </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">catch</span><span class="pln"> </span><span class="pun">(</span><span class="typ">SQLException</span><span class="pln"> e</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                    e</span><span class="pun">.</span><span class="pln">printStackTrace</span><span class="pun">();</span><span class="pln">
+                                </span><span class="pun">}</span><span class="pln">
+                            </span><span class="pun">}</span><span class="pln">
+                            </span><span class="kwd">return</span><span class="pln"> tableInfo</span><span class="pun">;</span><span class="pln">
+                        </span><span class="pun">}</span></code></pre>
+                    <ul>
+                    <li>以下这一段代码是以上三段代码需要用到的公共方法</li>
+                    </ul>
+                    <pre class="prettyprint"><code><span class="com">/**
+                         * @Description 请求数据库链接，获取返回结果集
+                         * @author zhangyd
+                         * @date 2015年12月9日 上午10:32:22
+                         * @param dbAddress
+                         * @param userName
+                         * @param passWord
+                         * @param sql
+                         * @return
+                         */</span><span class="pln">
+                        </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">ResultSet</span><span class="pln"> getResultSet</span><span class="pun">(</span><span class="typ">Connection</span><span class="pln"> conn</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Statement</span><span class="pln"> statement</span><span class="pun">,</span><span class="pln"> </span><span class="typ">String</span><span class="pln"> dbAddress</span><span class="pun">,</span><span class="pln"> </span><span class="typ">String</span><span class="pln"> userName</span><span class="pun">,</span><span class="pln">
+                                </span><span class="typ">String</span><span class="pln"> passWord</span><span class="pun">,</span><span class="pln"> </span><span class="typ">String</span><span class="pln"> sql</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                            </span><span class="typ">ResultSet</span><span class="pln"> rs </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">;</span><span class="pln">
+                            </span><span class="kwd">try</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                conn </span><span class="pun">=</span><span class="pln"> </span><span class="typ">DriverManager</span><span class="pun">.</span><span class="pln">getConnection</span><span class="pun">(</span><span class="pln">getDbUrl</span><span class="pun">(</span><span class="pln">dbAddress</span><span class="pun">),</span><span class="pln"> userName</span><span class="pun">,</span><span class="pln"> passWord</span><span class="pun">);</span><span class="pln">
+                                statement </span><span class="pun">=</span><span class="pln"> conn</span><span class="pun">.</span><span class="pln">createStatement</span><span class="pun">();</span><span class="pln">
+                                rs </span><span class="pun">=</span><span class="pln"> statement</span><span class="pun">.</span><span class="pln">executeQuery</span><span class="pun">(</span><span class="pln">sql</span><span class="pun">.</span><span class="pln">toString</span><span class="pun">());</span><span class="pln">
+                            </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">catch</span><span class="pln"> </span><span class="pun">(</span><span class="typ">SQLException</span><span class="pln"> e</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                e</span><span class="pun">.</span><span class="pln">printStackTrace</span><span class="pun">();</span><span class="pln">
+                            </span><span class="pun">}</span><span class="pln">
+                            </span><span class="kwd">return</span><span class="pln"> rs</span><span class="pun">;</span><span class="pln">
+                        </span><span class="pun">}</span><span class="pln">
+
+                        </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">String</span><span class="pln"> getDbUrl</span><span class="pun">(</span><span class="typ">String</span><span class="pln"> dbAddress</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                            </span><span class="kwd">return</span><span class="pln"> </span><span class="str">"jdbc:mysql://"</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> dbAddress </span><span class="pun">+</span><span class="pln"> </span><span class="str">"?useUnicode=true&amp;characterEncoding=utf-8"</span><span class="pun">;</span><span class="pln">
+                        </span><span class="pun">}</span></code></pre>
+                    <ul>
+                    <li>生成java文件相关业务实现</li>
+                    </ul>
+                    <pre class="prettyprint"><code><span class="com">/**   
+                     * @Title: GenerationClassServiceImpl.java 
+                     * @Package: com.maven.web.service.generation.impl
+                     * @Description: TODO
+                     * @author zhangyd
+                     * @date 2015年11月16日 下午5:54:28 
+                     * @version 1.0 
+                     */</span><span class="pln">
+                    </span><span class="kwd">package</span><span class="pln"> com</span><span class="pun">.</span><span class="pln">maven</span><span class="pun">.</span><span class="pln">web</span><span class="pun">.</span><span class="pln">service</span><span class="pun">.</span><span class="pln">generation</span><span class="pun">.</span><span class="pln">impl</span><span class="pun">;</span><span class="pln">
+
+                    </span><span class="kwd">import</span><span class="pln"> java</span><span class="pun">.</span><span class="pln">util</span><span class="pun">.</span><span class="typ">HashMap</span><span class="pun">;</span><span class="pln">
+                    </span><span class="kwd">import</span><span class="pln"> java</span><span class="pun">.</span><span class="pln">util</span><span class="pun">.</span><span class="typ">List</span><span class="pun">;</span><span class="pln">
+                    </span><span class="kwd">import</span><span class="pln"> java</span><span class="pun">.</span><span class="pln">util</span><span class="pun">.</span><span class="typ">Map</span><span class="pun">;</span><span class="pln">
+
+                    </span><span class="kwd">import</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">beans</span><span class="pun">.</span><span class="pln">factory</span><span class="pun">.</span><span class="pln">annotation</span><span class="pun">.</span><span class="typ">Autowired</span><span class="pun">;</span><span class="pln">
+                    </span><span class="kwd">import</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">stereotype</span><span class="pun">.</span><span class="typ">Service</span><span class="pun">;</span><span class="pln">
+
+                    </span><span class="kwd">import</span><span class="pln"> com</span><span class="pun">.</span><span class="pln">maven</span><span class="pun">.</span><span class="pln">web</span><span class="pun">.</span><span class="pln">dao</span><span class="pun">.</span><span class="pln">generation</span><span class="pun">.</span><span class="typ">GenerationMapperDao</span><span class="pun">;</span><span class="pln">
+                    </span><span class="kwd">import</span><span class="pln"> com</span><span class="pun">.</span><span class="pln">maven</span><span class="pun">.</span><span class="pln">web</span><span class="pun">.</span><span class="pln">entity</span><span class="pun">.</span><span class="pln">generation</span><span class="pun">.</span><span class="typ">TableForm</span><span class="pun">;</span><span class="pln">
+                    </span><span class="kwd">import</span><span class="pln"> com</span><span class="pun">.</span><span class="pln">maven</span><span class="pun">.</span><span class="pln">web</span><span class="pun">.</span><span class="pln">entity</span><span class="pun">.</span><span class="pln">generation</span><span class="pun">.</span><span class="typ">Variable</span><span class="pun">;</span><span class="pln">
+                    </span><span class="kwd">import</span><span class="pln"> com</span><span class="pun">.</span><span class="pln">maven</span><span class="pun">.</span><span class="pln">web</span><span class="pun">.</span><span class="pln">service</span><span class="pun">.</span><span class="pln">generation</span><span class="pun">.</span><span class="typ">IGenerationClassService</span><span class="pun">;</span><span class="pln">
+                    </span><span class="kwd">import</span><span class="pln"> com</span><span class="pun">.</span><span class="pln">maven</span><span class="pun">.</span><span class="pln">web</span><span class="pun">.</span><span class="pln">utils</span><span class="pun">.</span><span class="typ">FileUtil</span><span class="pun">;</span><span class="pln">
+                    </span><span class="kwd">import</span><span class="pln"> com</span><span class="pun">.</span><span class="pln">maven</span><span class="pun">.</span><span class="pln">web</span><span class="pun">.</span><span class="pln">utils</span><span class="pun">.</span><span class="typ">StringUtil</span><span class="pun">;</span><span class="pln">
+                    </span><span class="kwd">import</span><span class="pln"> com</span><span class="pun">.</span><span class="pln">maven</span><span class="pun">.</span><span class="pln">web</span><span class="pun">.</span><span class="pln">utils</span><span class="pun">.</span><span class="pln">memcache</span><span class="pun">.</span><span class="typ">MemcachedUtil</span><span class="pun">;</span><span class="pln">
+
+                    </span><span class="com">/**
+                     * @Description 生成java文件业务实现
+                     * @author zhangyd
+                     * @date 2015年12月18日 下午4:54:13
+                     * @version V1.0
+                     * @since JDK ： 1.7
+                     * @modify
+                     * @Review
+                     */</span><span class="pln">
+                    </span><span class="lit">@Service</span><span class="pln">
+                    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">GenerationClassServiceImpl</span><span class="pln"> </span><span class="kwd">implements</span><span class="pln"> </span><span class="typ">IGenerationClassService</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+                        </span><span class="lit">@Autowired</span><span class="pln">
+                        </span><span class="kwd">private</span><span class="pln"> </span><span class="typ">GenerationMapperDao</span><span class="pln"> generationMapperDao</span><span class="pun">;</span><span class="pln">
+
+                        </span><span class="com">// 数据库数据类型、java数据类型映射map</span><span class="pln">
+                        </span><span class="kwd">private</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> </span><span class="typ">Map</span><span class="pun">&lt;</span><span class="typ">String</span><span class="pun">,</span><span class="pln"> </span><span class="typ">String</span><span class="pun">&gt;</span><span class="pln"> dataTypeMapping </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">HashMap</span><span class="pun">&lt;</span><span class="typ">String</span><span class="pun">,</span><span class="pln"> </span><span class="typ">String</span><span class="pun">&gt;();</span><span class="pln">
+
+                        </span><span class="com">// 初始化数据库类型与java类型转换</span><span class="pln">
+                        </span><span class="kwd">static</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                            dataTypeMapping</span><span class="pun">.</span><span class="pln">put</span><span class="pun">(</span><span class="str">"int"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"int"</span><span class="pun">);</span><span class="pln">
+                            dataTypeMapping</span><span class="pun">.</span><span class="pln">put</span><span class="pun">(</span><span class="str">"tinyint"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"int"</span><span class="pun">);</span><span class="pln">
+                            dataTypeMapping</span><span class="pun">.</span><span class="pln">put</span><span class="pun">(</span><span class="str">"smallint"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"int"</span><span class="pun">);</span><span class="pln">
+                            dataTypeMapping</span><span class="pun">.</span><span class="pln">put</span><span class="pun">(</span><span class="str">"mediumint"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"int"</span><span class="pun">);</span><span class="pln">
+                            dataTypeMapping</span><span class="pun">.</span><span class="pln">put</span><span class="pun">(</span><span class="str">"integer"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"int"</span><span class="pun">);</span><span class="pln">
+                            dataTypeMapping</span><span class="pun">.</span><span class="pln">put</span><span class="pun">(</span><span class="str">"bigint"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"long"</span><span class="pun">);</span><span class="pln">
+                            dataTypeMapping</span><span class="pun">.</span><span class="pln">put</span><span class="pun">(</span><span class="str">"bit"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"boolean"</span><span class="pun">);</span><span class="pln">
+                            dataTypeMapping</span><span class="pun">.</span><span class="pln">put</span><span class="pun">(</span><span class="str">"real"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"float"</span><span class="pun">);</span><span class="pln">
+                            dataTypeMapping</span><span class="pun">.</span><span class="pln">put</span><span class="pun">(</span><span class="str">"double"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"double"</span><span class="pun">);</span><span class="pln">
+                            dataTypeMapping</span><span class="pun">.</span><span class="pln">put</span><span class="pun">(</span><span class="str">"float"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"float"</span><span class="pun">);</span><span class="pln">
+                            dataTypeMapping</span><span class="pun">.</span><span class="pln">put</span><span class="pun">(</span><span class="str">"float"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"float"</span><span class="pun">);</span><span class="pln">
+                            dataTypeMapping</span><span class="pun">.</span><span class="pln">put</span><span class="pun">(</span><span class="str">"decimal"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"BigDecimal"</span><span class="pun">);</span><span class="pln">
+                            dataTypeMapping</span><span class="pun">.</span><span class="pln">put</span><span class="pun">(</span><span class="str">"numeric"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"BigDecimal"</span><span class="pun">);</span><span class="pln">
+                            dataTypeMapping</span><span class="pun">.</span><span class="pln">put</span><span class="pun">(</span><span class="str">"char"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"String"</span><span class="pun">);</span><span class="pln">
+                            dataTypeMapping</span><span class="pun">.</span><span class="pln">put</span><span class="pun">(</span><span class="str">"varchar"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"String"</span><span class="pun">);</span><span class="pln">
+                            dataTypeMapping</span><span class="pun">.</span><span class="pln">put</span><span class="pun">(</span><span class="str">"date"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"java.util.Date"</span><span class="pun">);</span><span class="pln">
+                            dataTypeMapping</span><span class="pun">.</span><span class="pln">put</span><span class="pun">(</span><span class="str">"time"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"java.util.Time"</span><span class="pun">);</span><span class="pln">
+                            dataTypeMapping</span><span class="pun">.</span><span class="pln">put</span><span class="pun">(</span><span class="str">"year"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"java.util.Date"</span><span class="pun">);</span><span class="pln">
+                            dataTypeMapping</span><span class="pun">.</span><span class="pln">put</span><span class="pun">(</span><span class="str">"timestamp"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"java.util.Timestamp"</span><span class="pun">);</span><span class="pln">
+                            dataTypeMapping</span><span class="pun">.</span><span class="pln">put</span><span class="pun">(</span><span class="str">"datetime"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"java.util.Date"</span><span class="pun">);</span><span class="pln">
+                            dataTypeMapping</span><span class="pun">.</span><span class="pln">put</span><span class="pun">(</span><span class="str">"tinyblob"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"byte[]"</span><span class="pun">);</span><span class="pln">
+                            dataTypeMapping</span><span class="pun">.</span><span class="pln">put</span><span class="pun">(</span><span class="str">"blob"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"byte[]"</span><span class="pun">);</span><span class="pln">
+                            dataTypeMapping</span><span class="pun">.</span><span class="pln">put</span><span class="pun">(</span><span class="str">"mediumblob"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"byte[]"</span><span class="pun">);</span><span class="pln">
+                            dataTypeMapping</span><span class="pun">.</span><span class="pln">put</span><span class="pun">(</span><span class="str">"longblob"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"byte[]"</span><span class="pun">);</span><span class="pln">
+                            dataTypeMapping</span><span class="pun">.</span><span class="pln">put</span><span class="pun">(</span><span class="str">"tinytext"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"String"</span><span class="pun">);</span><span class="pln">
+                            dataTypeMapping</span><span class="pun">.</span><span class="pln">put</span><span class="pun">(</span><span class="str">"text"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"String"</span><span class="pun">);</span><span class="pln">
+                            dataTypeMapping</span><span class="pun">.</span><span class="pln">put</span><span class="pun">(</span><span class="str">"mediumtext"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"String"</span><span class="pun">);</span><span class="pln">
+                            dataTypeMapping</span><span class="pun">.</span><span class="pln">put</span><span class="pun">(</span><span class="str">"longtext"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"String"</span><span class="pun">);</span><span class="pln">
+                            dataTypeMapping</span><span class="pun">.</span><span class="pln">put</span><span class="pun">(</span><span class="str">"binary"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"byte[]"</span><span class="pun">);</span><span class="pln">
+                        </span><span class="pun">}</span><span class="pln">
+
+                        </span><span class="com">/**
+                         * @Description 生成java实体
+                         * @author zhangyd
+                         * @date 2015年12月9日 上午10:11:17
+                         * @param tableForm
+                         * @return
+                         */</span><span class="pln">
+                        </span><span class="lit">@Override</span><span class="pln">
+                        </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">Map</span><span class="pun">&lt;</span><span class="typ">String</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Object</span><span class="pun">&gt;</span><span class="pln"> getJava</span><span class="pun">(</span><span class="typ">TableForm</span><span class="pln"> tableForm</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                            </span><span class="typ">List</span><span class="pun">&lt;</span><span class="typ">Variable</span><span class="pun">&gt;</span><span class="pln"> tableInfo </span><span class="pun">=</span><span class="pln"> generationMapperDao</span><span class="pun">.</span><span class="pln">getTableInfo</span><span class="pun">(</span><span class="pln">tableForm</span><span class="pun">);</span><span class="pln">
+                            </span><span class="typ">Map</span><span class="pun">&lt;</span><span class="typ">String</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Object</span><span class="pun">&gt;</span><span class="pln"> sqlMap </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">HashMap</span><span class="pun">&lt;</span><span class="typ">String</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Object</span><span class="pun">&gt;();</span><span class="pln">
+                            </span><span class="typ">String</span><span class="pln"> sqlString </span><span class="pun">=</span><span class="pln"> createJava</span><span class="pun">(</span><span class="pln">tableInfo</span><span class="pun">,</span><span class="pln"> tableForm</span><span class="pun">);</span><span class="pln">
+                            sqlMap</span><span class="pun">.</span><span class="pln">put</span><span class="pun">(</span><span class="str">"list"</span><span class="pun">,</span><span class="pln"> sqlString</span><span class="pun">);</span><span class="pln">
+                            </span><span class="kwd">return</span><span class="pln"> sqlMap</span><span class="pun">;</span><span class="pln">
+                        </span><span class="pun">}</span><span class="pln">
+
+                        </span><span class="com">/**
+                         * @Description 创建java实体字符串
+                         * @author zhangyd
+                         * @date 2015年12月9日 上午10:11:22
+                         * @param tableInfo
+                         * @param tableForm
+                         * @return
+                         */</span><span class="pln">
+                        </span><span class="lit">@Override</span><span class="pln">
+                        </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">String</span><span class="pln"> createJava</span><span class="pun">(</span><span class="typ">List</span><span class="pun">&lt;</span><span class="typ">Variable</span><span class="pun">&gt;</span><span class="pln"> tableInfo</span><span class="pun">,</span><span class="pln"> </span><span class="typ">TableForm</span><span class="pln"> tableForm</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                            </span><span class="typ">StringBuilder</span><span class="pln"> sb </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">StringBuilder</span><span class="pun">();</span><span class="pln">
+                            </span><span class="com">// 包名</span><span class="pln">
+                            </span><span class="typ">String</span><span class="pln"> packageString </span><span class="pun">=</span><span class="pln"> createPackage</span><span class="pun">(</span><span class="pln">tableForm</span><span class="pun">.</span><span class="pln">getEntityPackage</span><span class="pun">());</span><span class="pln">
+                            sb</span><span class="pun">.</span><span class="pln">append</span><span class="pun">(</span><span class="pln">packageString</span><span class="pun">);</span><span class="pln">
+                            </span><span class="com">// class</span><span class="pln">
+                            </span><span class="typ">String</span><span class="pln"> classString </span><span class="pun">=</span><span class="pln"> createClass</span><span class="pun">(</span><span class="pln">tableForm</span><span class="pun">.</span><span class="pln">getSelectedTableNames</span><span class="pun">());</span><span class="pln">
+                            sb</span><span class="pun">.</span><span class="pln">append</span><span class="pun">(</span><span class="pln">classString</span><span class="pun">);</span><span class="pln">
+                            </span><span class="com">// 变量</span><span class="pln">
+                            </span><span class="typ">String</span><span class="pln"> variablesString </span><span class="pun">=</span><span class="pln"> createVariables</span><span class="pun">(</span><span class="pln">tableInfo</span><span class="pun">);</span><span class="pln">
+                            sb</span><span class="pun">.</span><span class="pln">append</span><span class="pun">(</span><span class="pln">variablesString</span><span class="pun">);</span><span class="pln">
+                            </span><span class="com">// SetAndGet</span><span class="pln">
+                            </span><span class="typ">String</span><span class="pln"> </span><span class="typ">SetAndGetString</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> createSetAndGet</span><span class="pun">(</span><span class="pln">tableInfo</span><span class="pun">);</span><span class="pln">
+                            sb</span><span class="pun">.</span><span class="pln">append</span><span class="pun">(</span><span class="typ">SetAndGetString</span><span class="pun">);</span><span class="pln">
+                            </span><span class="com">// 尾部</span><span class="pln">
+                            </span><span class="typ">String</span><span class="pln"> tailString </span><span class="pun">=</span><span class="pln"> createTail</span><span class="pun">();</span><span class="pln">
+                            sb</span><span class="pun">.</span><span class="pln">append</span><span class="pun">(</span><span class="pln">tailString</span><span class="pun">);</span><span class="pln">
+                            </span><span class="kwd">return</span><span class="pln"> sb</span><span class="pun">.</span><span class="pln">toString</span><span class="pun">();</span><span class="pln">
+                        </span><span class="pun">}</span><span class="pln">
+
+                        </span><span class="com">/**
+                         * @Description 创建包信息
+                         * @author zhangyd
+                         * @date 2015年12月9日 上午10:11:28
+                         * @param packagePath
+                         * @return
+                         */</span><span class="pln">
+                        </span><span class="lit">@Override</span><span class="pln">
+                        </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">String</span><span class="pln"> createPackage</span><span class="pun">(</span><span class="typ">String</span><span class="pln"> packagePath</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                            </span><span class="typ">StringBuilder</span><span class="pln"> sb </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">StringBuilder</span><span class="pun">();</span><span class="pln">
+                            sb</span><span class="pun">.</span><span class="pln">append</span><span class="pun">(</span><span class="str">"package "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> packagePath </span><span class="pun">+</span><span class="pln"> </span><span class="str">";&lt;br&gt;&lt;br&gt;"</span><span class="pun">);</span><span class="pln">
+                            </span><span class="kwd">return</span><span class="pln"> sb</span><span class="pun">.</span><span class="pln">toString</span><span class="pun">();</span><span class="pln">
+                        </span><span class="pun">}</span><span class="pln">
+
+                        </span><span class="com">/**
+                         * @Description 创建导入信息
+                         * @author zhangyd
+                         * @date 2015年12月9日 上午10:11:33
+                         * @return
+                         */</span><span class="pln">
+                        </span><span class="lit">@Override</span><span class="pln">
+                        </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">String</span><span class="pln"> createImport</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                            </span><span class="typ">StringBuilder</span><span class="pln"> sb </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">StringBuilder</span><span class="pun">();</span><span class="pln">
+                            sb</span><span class="pun">.</span><span class="pln">append</span><span class="pun">(</span><span class="str">"&lt;br&gt;"</span><span class="pun">);</span><span class="pln">
+                            </span><span class="kwd">return</span><span class="pln"> sb</span><span class="pun">.</span><span class="pln">toString</span><span class="pun">();</span><span class="pln">
+                        </span><span class="pun">}</span><span class="pln">
+
+                        </span><span class="com">/**
+                         * @Description 创建class名
+                         * @author zhangyd
+                         * @date 2015年12月9日 上午10:11:39
+                         * @param tableName
+                         * @return
+                         */</span><span class="pln">
+                        </span><span class="lit">@Override</span><span class="pln">
+                        </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">String</span><span class="pln"> createClass</span><span class="pun">(</span><span class="typ">String</span><span class="pln"> tableName</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                            </span><span class="typ">StringBuilder</span><span class="pln"> sb </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">StringBuilder</span><span class="pun">();</span><span class="pln">
+                            </span><span class="typ">String</span><span class="pun">[]</span><span class="pln"> temps </span><span class="pun">=</span><span class="pln"> tableName</span><span class="pun">.</span><span class="pln">split</span><span class="pun">(</span><span class="str">"_"</span><span class="pun">);</span><span class="pln">
+                            tableName </span><span class="pun">=</span><span class="pln"> temps</span><span class="pun">[</span><span class="lit">0</span><span class="pun">];</span><span class="pln">
+                            </span><span class="kwd">for</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">int</span><span class="pln"> i </span><span class="pun">=</span><span class="pln"> </span><span class="lit">1</span><span class="pun">;</span><span class="pln"> i </span><span class="pun">&lt;</span><span class="pln"> temps</span><span class="pun">.</span><span class="pln">length</span><span class="pun">;</span><span class="pln"> i</span><span class="pun">++)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                tableName </span><span class="pun">+=</span><span class="pln"> </span><span class="typ">StringUtil</span><span class="pun">.</span><span class="pln">initialtoUpper</span><span class="pun">(</span><span class="pln">temps</span><span class="pun">[</span><span class="pln">i</span><span class="pun">]);</span><span class="pln">
+                            </span><span class="pun">}</span><span class="pln">
+                            sb</span><span class="pun">.</span><span class="pln">append</span><span class="pun">(</span><span class="str">"public class "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="typ">StringUtil</span><span class="pun">.</span><span class="pln">initialtoUpper</span><span class="pun">(</span><span class="pln">tableName</span><span class="pun">)</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="str">" {&lt;br&gt;"</span><span class="pun">);</span><span class="pln">
+                            </span><span class="kwd">return</span><span class="pln"> sb</span><span class="pun">.</span><span class="pln">toString</span><span class="pun">();</span><span class="pln">
+                        </span><span class="pun">}</span><span class="pln">
+
+                        </span><span class="com">/**
+                         * @Description 创建变量
+                         * @author zhangyd
+                         * @date 2015年12月9日 上午10:11:55
+                         * @param tableInfo
+                         * @return
+                         */</span><span class="pln">
+                        </span><span class="lit">@Override</span><span class="pln">
+                        </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">String</span><span class="pln"> createVariables</span><span class="pun">(</span><span class="typ">List</span><span class="pun">&lt;</span><span class="typ">Variable</span><span class="pun">&gt;</span><span class="pln"> tableInfo</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                            </span><span class="typ">StringBuilder</span><span class="pln"> sb </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">StringBuilder</span><span class="pun">();</span><span class="pln">
+                            </span><span class="kwd">for</span><span class="pln"> </span><span class="pun">(</span><span class="typ">Variable</span><span class="pln"> variable </span><span class="pun">:</span><span class="pln"> tableInfo</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="typ">StringUtil</span><span class="pun">.</span><span class="pln">isNotEmpty</span><span class="pun">(</span><span class="pln">variable</span><span class="pun">.</span><span class="pln">getComment</span><span class="pun">()))</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                    sb</span><span class="pun">.</span><span class="pln">append</span><span class="pun">(</span><span class="str">" //"</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> variable</span><span class="pun">.</span><span class="pln">getComment</span><span class="pun">()</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="str">"&lt;br&gt;"</span><span class="pun">);</span><span class="pln">
+                                </span><span class="pun">}</span><span class="pln">
+                                sb</span><span class="pun">.</span><span class="pln">append</span><span class="pun">(</span><span class="str">" private "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> dataTypeMapping</span><span class="pun">.</span><span class="kwd">get</span><span class="pun">(</span><span class="pln">variable</span><span class="pun">.</span><span class="pln">getType</span><span class="pun">())</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="str">" "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> variable</span><span class="pun">.</span><span class="pln">getPropertyNames</span><span class="pun">()</span><span class="pln">
+                                        </span><span class="pun">+</span><span class="pln"> </span><span class="str">";&lt;br&gt;"</span><span class="pun">);</span><span class="pln">
+                            </span><span class="pun">}</span><span class="pln">
+                            sb</span><span class="pun">.</span><span class="pln">append</span><span class="pun">(</span><span class="str">"&lt;br&gt;"</span><span class="pun">);</span><span class="pln">
+                            </span><span class="kwd">return</span><span class="pln"> sb</span><span class="pun">.</span><span class="pln">toString</span><span class="pun">();</span><span class="pln">
+                        </span><span class="pun">}</span><span class="pln">
+
+                        </span><span class="com">/**
+                         * @Description 创建set、get方法
+                         * @author zhangyd
+                         * @date 2015年12月9日 上午10:12:02
+                         * @param tableInfo
+                         * @return
+                         */</span><span class="pln">
+                        </span><span class="lit">@Override</span><span class="pln">
+                        </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">String</span><span class="pln"> createSetAndGet</span><span class="pun">(</span><span class="typ">List</span><span class="pun">&lt;</span><span class="typ">Variable</span><span class="pun">&gt;</span><span class="pln"> tableInfo</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                            </span><span class="typ">StringBuilder</span><span class="pln"> sb </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">StringBuilder</span><span class="pun">();</span><span class="pln">
+                            </span><span class="kwd">for</span><span class="pln"> </span><span class="pun">(</span><span class="typ">Variable</span><span class="pln"> variable </span><span class="pun">:</span><span class="pln"> tableInfo</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                sb</span><span class="pun">.</span><span class="pln">append</span><span class="pun">(</span><span class="str">" public void set"</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="typ">StringUtil</span><span class="pun">.</span><span class="pln">initialtoUpper</span><span class="pun">(</span><span class="pln">variable</span><span class="pun">.</span><span class="pln">getPropertyNames</span><span class="pun">())</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="str">"("</span><span class="pln">
+                                        </span><span class="pun">+</span><span class="pln"> dataTypeMapping</span><span class="pun">.</span><span class="kwd">get</span><span class="pun">(</span><span class="pln">variable</span><span class="pun">.</span><span class="pln">getType</span><span class="pun">())</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="str">" "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> variable</span><span class="pun">.</span><span class="pln">getPropertyNames</span><span class="pun">()</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="str">"){&lt;br&gt;"</span><span class="pun">);</span><span class="pln">
+                                sb</span><span class="pun">.</span><span class="pln">append</span><span class="pun">(</span><span class="str">"     this."</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> variable</span><span class="pun">.</span><span class="pln">getPropertyNames</span><span class="pun">()</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="str">" = "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> variable</span><span class="pun">.</span><span class="pln">getPropertyNames</span><span class="pun">()</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="str">";&lt;br&gt;"</span><span class="pun">);</span><span class="pln">
+                                sb</span><span class="pun">.</span><span class="pln">append</span><span class="pun">(</span><span class="str">" }&lt;br&gt;&lt;br&gt;"</span><span class="pun">);</span><span class="pln">
+
+                                sb</span><span class="pun">.</span><span class="pln">append</span><span class="pun">(</span><span class="str">" public "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> dataTypeMapping</span><span class="pun">.</span><span class="kwd">get</span><span class="pun">(</span><span class="pln">variable</span><span class="pun">.</span><span class="pln">getType</span><span class="pun">())</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="str">" get"</span><span class="pln">
+                                        </span><span class="pun">+</span><span class="pln"> </span><span class="typ">StringUtil</span><span class="pun">.</span><span class="pln">initialtoUpper</span><span class="pun">(</span><span class="pln">variable</span><span class="pun">.</span><span class="pln">getPropertyNames</span><span class="pun">())</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="str">"(){&lt;br&gt;"</span><span class="pun">);</span><span class="pln">
+                                sb</span><span class="pun">.</span><span class="pln">append</span><span class="pun">(</span><span class="str">"     return this."</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> variable</span><span class="pun">.</span><span class="pln">getPropertyNames</span><span class="pun">()</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="str">";&lt;br&gt;"</span><span class="pun">);</span><span class="pln">
+                                sb</span><span class="pun">.</span><span class="pln">append</span><span class="pun">(</span><span class="str">" }&lt;br&gt;&lt;br&gt;"</span><span class="pun">);</span><span class="pln">
+                            </span><span class="pun">}</span><span class="pln">
+                            </span><span class="kwd">return</span><span class="pln"> sb</span><span class="pun">.</span><span class="pln">toString</span><span class="pun">();</span><span class="pln">
+                        </span><span class="pun">}</span><span class="pln">
+
+                        </span><span class="com">/**
+                         * @Description 创建class尾部
+                         * @author zhangyd
+                         * @date 2015年12月9日 上午10:12:09
+                         * @return
+                         */</span><span class="pln">
+                        </span><span class="lit">@Override</span><span class="pln">
+                        </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">String</span><span class="pln"> createTail</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                            </span><span class="kwd">return</span><span class="pln"> </span><span class="str">"}"</span><span class="pun">;</span><span class="pln">
+                        </span><span class="pun">}</span><span class="pln">
+                    </span><span class="pun">}</span></code></pre>
+                    <ul>
+                    <li>关于文件导出</li>
+                    </ul>
+                    <pre class="prettyprint"><code><span class="com">/**
+                         * @Description 得到生成的实体字符串
+                         * @author zhangyd
+                         * @date 2015年12月9日 上午9:51:36 
+                         * @param sqlForm
+                         * @return
+                         */</span><span class="pln">
+                        </span><span class="lit">@RequestMapping</span><span class="pun">(</span><span class="pln">value </span><span class="pun">=</span><span class="pln"> </span><span class="str">"/getJava"</span><span class="pun">,</span><span class="pln"> produces </span><span class="pun">=</span><span class="pln"> </span><span class="str">"application/json; charset=utf-8"</span><span class="pun">)</span><span class="pln">
+                        </span><span class="lit">@ResponseBody</span><span class="pln">
+                        </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">String</span><span class="pln"> getJava</span><span class="pun">(</span><span class="typ">TableForm</span><span class="pln"> sqlForm</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                            </span><span class="kwd">try</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                </span><span class="typ">String</span><span class="pln"> filename </span><span class="pun">=</span><span class="pln"> </span><span class="typ">StringUtil</span><span class="pun">.</span><span class="pln">splitAndtoUpper</span><span class="pun">(</span><span class="pln">sqlForm</span><span class="pun">.</span><span class="pln">getSelectedTableNames</span><span class="pun">(),</span><span class="pln"> </span><span class="str">"_"</span><span class="pun">)</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="str">".java"</span><span class="pun">;</span><span class="pln">
+                                </span><span class="typ">String</span><span class="pln"> path </span><span class="pun">=</span><span class="pln"> generationClassService</span><span class="pun">.</span><span class="pln">getSaveFilePath</span><span class="pun">(</span><span class="pln">filename</span><span class="pun">,</span><span class="pln"> sqlForm</span><span class="pun">);</span><span class="pln">
+                                </span><span class="typ">MemcachedUtil</span><span class="pun">.</span><span class="kwd">set</span><span class="pun">(</span><span class="str">"java_path"</span><span class="pun">,</span><span class="pln"> path</span><span class="pun">);</span><span class="pln">
+                                </span><span class="typ">MemcachedUtil</span><span class="pun">.</span><span class="kwd">set</span><span class="pun">(</span><span class="str">"java_name"</span><span class="pun">,</span><span class="pln"> filename</span><span class="pun">);</span><span class="pln">
+                            </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">catch</span><span class="pln"> </span><span class="pun">(</span><span class="typ">Exception</span><span class="pln"> e</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                e</span><span class="pun">.</span><span class="pln">printStackTrace</span><span class="pun">();</span><span class="pln">
+                            </span><span class="pun">}</span><span class="pln">
+                            </span><span class="typ">Map</span><span class="pun">&lt;</span><span class="typ">String</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Object</span><span class="pun">&gt;</span><span class="pln"> map </span><span class="pun">=</span><span class="pln"> generationClassService</span><span class="pun">.</span><span class="pln">getJava</span><span class="pun">(</span><span class="pln">sqlForm</span><span class="pun">);</span><span class="pln">
+                            </span><span class="com">// 页面用，保证队形</span><span class="pln">
+                            </span><span class="typ">String</span><span class="pln"> sql </span><span class="pun">=</span><span class="pln"> </span><span class="pun">(</span><span class="typ">String</span><span class="pun">)</span><span class="pln"> map</span><span class="pun">.</span><span class="kwd">get</span><span class="pun">(</span><span class="str">"list"</span><span class="pun">);</span><span class="pln">
+                            map</span><span class="pun">.</span><span class="pln">put</span><span class="pun">(</span><span class="str">"list"</span><span class="pun">,</span><span class="pln"> sql</span><span class="pun">.</span><span class="pln">replace</span><span class="pun">(</span><span class="str">"   "</span><span class="pun">,</span><span class="pln"> </span><span class="str">" "</span><span class="pun">));</span><span class="pln">
+                            </span><span class="typ">JSONObject</span><span class="pln"> jsonObject </span><span class="pun">=</span><span class="pln"> </span><span class="typ">JSONObject</span><span class="pun">.</span><span class="pln">fromObject</span><span class="pun">(</span><span class="pln">map</span><span class="pun">);</span><span class="pln">
+                            </span><span class="kwd">return</span><span class="pln"> jsonObject</span><span class="pun">.</span><span class="pln">toString</span><span class="pun">();</span><span class="pln">
+                        </span><span class="pun">}</span></code></pre>
+                    <pre class="prettyprint"><code><span class="com">/**
+                         * @Description 获取保存文件的地址
+                         * @author zhangyd
+                         * @date 2015年12月18日 下午4:27:35
+                         * @param filename
+                         * @param mybatisSqlForm
+                         * @return
+                         */</span><span class="pln">
+                        </span><span class="lit">@Override</span><span class="pln">
+                        </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">String</span><span class="pln"> getSaveFilePath</span><span class="pun">(</span><span class="typ">String</span><span class="pln"> filename</span><span class="pun">,</span><span class="pln"> </span><span class="typ">TableForm</span><span class="pln"> mybatisSqlForm</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                            filename </span><span class="pun">=</span><span class="pln"> </span><span class="typ">StringUtil</span><span class="pun">.</span><span class="pln">initialtoUpper</span><span class="pun">(</span><span class="pln">filename</span><span class="pun">);</span><span class="pln">
+                            </span><span class="typ">Map</span><span class="pun">&lt;</span><span class="typ">String</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Object</span><span class="pun">&gt;</span><span class="pln"> map </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">getJava</span><span class="pun">(</span><span class="pln">mybatisSqlForm</span><span class="pun">);</span><span class="pln">
+                            </span><span class="typ">String</span><span class="pln"> sql </span><span class="pun">=</span><span class="pln"> </span><span class="pun">(</span><span class="typ">String</span><span class="pun">)</span><span class="pln"> map</span><span class="pun">.</span><span class="kwd">get</span><span class="pun">(</span><span class="str">"list"</span><span class="pun">);</span><span class="pln">
+                            sql </span><span class="pun">=</span><span class="pln"> sql</span><span class="pun">.</span><span class="pln">replace</span><span class="pun">(</span><span class="str">"&lt;br&gt;"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"\n"</span><span class="pun">);</span><span class="pln">
+
+                            </span><span class="typ">String</span><span class="pln"> path </span><span class="pun">=</span><span class="pln"> </span><span class="typ">FileUtil</span><span class="pun">.</span><span class="pln">getGenerationJavaFilePath</span><span class="pun">()</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> filename</span><span class="pun">;</span><span class="pln">
+                            </span><span class="typ">FileUtil</span><span class="pun">.</span><span class="pln">saveFile</span><span class="pun">(</span><span class="pln">path</span><span class="pun">,</span><span class="pln"> sql</span><span class="pun">.</span><span class="pln">replace</span><span class="pun">(</span><span class="str">"&lt;br&gt;"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"\n"</span><span class="pun">));</span><span class="pln">
+                            </span><span class="typ">MemcachedUtil</span><span class="pun">.</span><span class="kwd">set</span><span class="pun">(</span><span class="str">"java_path"</span><span class="pun">,</span><span class="pln"> path</span><span class="pun">);</span><span class="pln">
+                            </span><span class="kwd">return</span><span class="pln"> path</span><span class="pun">;</span><span class="pln">
+                        </span><span class="pun">}</span></code></pre>
+                    <p><strong>说明：</strong>因为我设计的是在点击生成java代码后才会显示导出按钮，因此，在生成java代码时就要把内容保存到文件中，供下载导出。同时，因为我没有用到数据库表记录生成的文件路径和名字，我用的是Memcache缓存，此处无强求，根据个人爱好，爱咋整咋整。</p>
+                    <ul>
+                    <li>将字符串保存到新文件中</li>
+                    </ul>
+                    <pre class="prettyprint"><code><span class="com">/**
+                         * @Description 将字符串写入文件==生成文件
+                         * @author zhangyd
+                         * @date 2015年12月8日 下午3:29:49
+                         * @param filePath
+                         * @param content
+                         * @return
+                         */</span><span class="pln">
+                        </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">boolean</span><span class="pln"> saveFile</span><span class="pun">(</span><span class="typ">String</span><span class="pln"> filePath</span><span class="pun">,</span><span class="pln"> </span><span class="typ">String</span><span class="pln"> content</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                            </span><span class="kwd">return</span><span class="pln"> saveFile</span><span class="pun">(</span><span class="pln">filePath</span><span class="pun">,</span><span class="pln"> content</span><span class="pun">,</span><span class="pln"> </span><span class="str">"UTF-8"</span><span class="pun">);</span><span class="pln">
+                        </span><span class="pun">}</span><span class="pln">
+
+                        </span><span class="com">/**
+                         * @Description 将字符串写入文件==生成文件
+                         * @author zhangyd
+                         * @date 2015年12月9日 下午1:32:30
+                         * @param path
+                         * @param content
+                         * @param encodeingType
+                         * @return
+                         */</span><span class="pln">
+                        </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">boolean</span><span class="pln"> saveFile</span><span class="pun">(</span><span class="typ">String</span><span class="pln"> path</span><span class="pun">,</span><span class="pln"> </span><span class="typ">String</span><span class="pln"> content</span><span class="pun">,</span><span class="pln"> </span><span class="typ">String</span><span class="pln"> encodeingType</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                            </span><span class="kwd">boolean</span><span class="pln"> flag </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">;</span><span class="pln">
+                            </span><span class="typ">DataOutputStream</span><span class="pln"> dos </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">;</span><span class="pln">
+                            </span><span class="kwd">try</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                </span><span class="typ">File</span><span class="pln"> file </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">File</span><span class="pun">(</span><span class="pln">path</span><span class="pun">);</span><span class="pln">
+                                </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">content </span><span class="pun">!=</span><span class="pln"> </span><span class="kwd">null</span><span class="pln"> </span><span class="pun">&amp;&amp;</span><span class="pln"> content</span><span class="pun">.</span><span class="pln">length</span><span class="pun">()</span><span class="pln"> </span><span class="pun">&gt;=</span><span class="pln"> </span><span class="lit">0</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                    </span><span class="kwd">byte</span><span class="pln"> abyte</span><span class="pun">[]</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> content</span><span class="pun">.</span><span class="pln">getBytes</span><span class="pun">(</span><span class="pln">encodeingType</span><span class="pun">);</span><span class="pln">
+                                    dos </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">DataOutputStream</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">FileOutputStream</span><span class="pun">(</span><span class="pln">file</span><span class="pun">));</span><span class="pln">
+                                    dos</span><span class="pun">.</span><span class="pln">write</span><span class="pun">(</span><span class="pln">abyte</span><span class="pun">,</span><span class="pln"> </span><span class="lit">0</span><span class="pun">,</span><span class="pln"> abyte</span><span class="pun">.</span><span class="pln">length</span><span class="pun">);</span><span class="pln">
+                                    dos</span><span class="pun">.</span><span class="pln">flush</span><span class="pun">();</span><span class="pln">
+
+                                    flag </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">;</span><span class="pln">
+                                </span><span class="pun">}</span><span class="pln">
+                            </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">catch</span><span class="pln"> </span><span class="pun">(</span><span class="typ">FileNotFoundException</span><span class="pln"> e</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                e</span><span class="pun">.</span><span class="pln">printStackTrace</span><span class="pun">();</span><span class="pln">
+                            </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">catch</span><span class="pln"> </span><span class="pun">(</span><span class="typ">IOException</span><span class="pln"> e</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                e</span><span class="pun">.</span><span class="pln">printStackTrace</span><span class="pun">();</span><span class="pln">
+                            </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">finally</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">dos </span><span class="pun">!=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                                    close</span><span class="pun">(</span><span class="pln">dos</span><span class="pun">);</span><span class="pln">
+                                </span><span class="pun">}</span><span class="pln">
+                            </span><span class="pun">}</span><span class="pln">
+                            </span><span class="kwd">return</span><span class="pln"> flag</span><span class="pun">;</span><span class="pln">
+                        </span><span class="pun">}</span></code></pre>
+                    <p>OK，到这儿就算到量了，基本的流程和逻辑以及核心代码，就是以上所示。如果感兴趣，可以根据这个思路自己弄一个。如果以上有看不明白的，或者我写的有不明确的地方，请随时call我，或者本文留言也行。</p>
+                    <p>......<br>
+                    <strong>恭迎各位大神指点......</strong><br>
+                    <img src="http://img.mukewang.com/5673d968000189d702260196.gif" alt="图片描述"></p>
+                </div>
+            </div> <!-- endoflist_box -->
+        </div> <!-- endoflist_main -->
+
+        
+
+    </div> <!-- endofwrap -->
+
+    <div class="copyright">
+        <div class="copyright_content">
+            <ul>
+                <li><a href="#">关于</a>
+                    <ul>
+                      <li>品牌故事</li>
+                      <li>联系我们</li>
+                      <li>加入我们</li>
+                      <li>版权声明</li>
+                    </ul>
+                </li>
+                <li><a href="#">课程</a>
+                    <ul>
+                      <li>PHP开发</li>
+                      <li>前端开发</li>
+                      <li>JAVA开发</li>
+                      <li>Android开发</li>
+                    </ul>
+                </li>
+                <li><a href="#">关注</a>
+                    <ul>
+                      <li>新浪微博</li>
+                      <li>腾讯微博</li>
+                      <li>企业微信</li>
+                      <li>QQ空间</li>
+                    </ul>
+
+                </li>
+                <li><a href="#">留言</a>
+                    <ul>
+                      <li>意见反馈</li>
+                      <li>问题留言</li>
+                      <li>媒体联络</li>
+                      <li>在线客服</li>
+                    </ul>
+                </li>
+                <li><a href="#"><img src="i/weixin.png">微信关注</a>
+                    <ul>
+                        <li><img src="i/qrcode.jpg"></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+
+</body>
+</html>

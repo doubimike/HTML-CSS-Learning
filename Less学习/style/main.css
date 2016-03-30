@@ -1,0 +1,121 @@
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
+}
+.clearfix {
+  zoom: 1;
+}
+.clearfix:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.font14 {
+  font-size: 14px;
+}
+.tudou_main {
+  width: 616px;
+  margin: 0 auto;
+}
+.title {
+  height: 62px;
+  line-height: 62px;
+  border-top: solid 1px #d0d0d0;
+  margin-top: 20px;
+}
+.title h3 {
+  font-size: 22px;
+  color: #575757;
+  font-weight: normal;
+  width: 106px;
+  border-top: solid 2px #f97374;
+  margin-top: -1px;
+  position: relative;
+  float: left;
+  height: 61px;
+}
+.title_nav {
+  float: right;
+  font-size: 14px;
+}
+.title_nav li {
+  float: left;
+  color: #575757;
+}
+.title_nav a {
+  color: #575757;
+}
+.title_nav a:hover {
+  color: red;
+}
+.title_nav span {
+  margin: 0 11px;
+}
+.content {
+  margin-right: -32px;
+}
+.item {
+  margin-bottom: 5px;
+  float: left;
+  margin-right: 32px;
+  width: 130px;
+  height: 160px;
+}
+.item_img {
+  height: 78px;
+  width: 130px;
+  display: inline-block;
+  position: relative;
+  margin-bottom: 5px;
+}
+.item_img span {
+  position: absolute;
+  width: 35px;
+  height: 18px;
+  line-height: 18px;
+  display: inline-block;
+  right: 0;
+  bottom: 0;
+  color: #fff;
+  text-align: right;
+  font-size: 12px;
+}
+.item_img .cq {
+  background: url(../i/blue.png) no-repeat;
+}
+.item_img .rcq {
+  background: url(../i/red.png) no-repeat;
+}
+.item_list {
+  line-height: 22px;
+  font-size: 12px;
+}
+.item_list a {
+  color: #666;
+}
+.item_list a:hover {
+  color: red;
+}
+.item_list .userName {
+  background: url(../i/1.png) no-repeat left center;
+  padding-left: 15px;
+  margin-right: 2px;
+  color: #666;
+  padding-top: 1px;
+}
+.item_list .play {
+  background: url(../i/2.png) no-repeat left center;
+  padding-left: 15px;
+  margin-right: 2px;
+  color: #666;
+  padding-top: 1px;
+}
+.item_list .mess {
+  background: url(../i/3.png) no-repeat left center;
+  padding-left: 15px;
+  margin-right: 2px;
+  color: #666;
+  padding-top: 1px;
+}

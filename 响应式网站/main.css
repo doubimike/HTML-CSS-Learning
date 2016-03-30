@@ -1,0 +1,144 @@
+*, *:before, *:after {
+	box-sizing: border-box;
+}
+
+body {
+	font: normal 100% Cambria,Georgia,serif;
+	background: url(bg.png);
+	line-height:1;
+	text-shadow: 0 1px 1px rgba(255, 255, 255, .8);
+}
+
+a {
+	text-decoration: none;
+	color: #8c0600;
+	text-transform: uppercase;
+}
+
+a:hover {
+	color: #df342f;
+
+}
+
+ul {
+	padding: 0;
+}
+
+nav {
+	width: 30%;
+	float:left;
+	padding: 0 2em;
+}
+
+
+.nav {
+	list-style: none;
+}
+
+
+.nav a {
+	display: block;
+	padding: 1.3em 0 3em;
+	margin-bottom: -1em;
+	text-align: center;
+	text-transform: uppercase;
+	color: #8c0600;
+	font-weight:300;
+	background: url(ornament.png) no-repeat 0 bottom;
+	transition: color .3s;
+}
+
+.nav a:hover {
+	background-position: center bottom;
+	color: #df342f;
+}
+
+nav h2 {
+	text-align: center;
+}
+
+.logo-bg {
+	display: block;
+	background: url(logo-bg.png) no-repeat center 0;
+	height: 284px;
+}
+
+.logo-bg .logo {
+	padding-top: 120px;
+	max-width:100%;
+}
+
+.nav a span, .imgitems a span{
+	display: block;
+	font-size: 1.2em;
+	font-weight:700;
+}
+
+.main {
+	width: 70%;
+	float:right;
+}
+
+.pagebg {
+	background: url(rag.png) repeat-x;
+	padding-top: 34px;
+}
+
+.main {
+	padding: 80px 40px 40px;
+}
+
+.content {
+	line-height: 1.5;
+}
+
+.content h2 {
+	text-align: center;
+	
+}
+
+.role {
+	background: url(ornament.png);
+}
+
+.content .role b {
+	background: url(bg.png);
+	padding: 0 .5em;
+}
+
+.amp {
+    font-family: Baskerville, Garamond, Palatino, "Palatino Linotype", "Hoefler Text", "Times New Roman", serif;
+    font-style: italic;
+    font-weight: normal;
+}
+
+abbr[title] {
+	border-bottom: none;
+}
+
+.img-item {
+	display: inline-block;
+	line-height:1;
+	width: 30%;
+	text-align: center;
+	padding-right: .5em;
+	cursor: pointer;
+}
+
+.img-item img {
+	width: 100%;
+	border-radius: 10px;
+	box-shadow: 1px 1px 2px rgba(0, 0, 0, .3);
+}
+
+.wrapper {
+	text-align: center;
+}
+
+.footer {
+	font-size: .7em;
+	background: url(ornament.png) center top no-repeat;
+	padding-top: 2em;
+	clear: both;
+	text-align: center;
+}

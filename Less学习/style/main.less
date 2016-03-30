@@ -1,0 +1,147 @@
+@import "ku";
+
+.font14{
+	font-size: 14px;
+}
+
+@fs:14px;
+
+//list total width
+@td_width:616px;
+
+.tudou_main{
+	width: @td_width;
+	margin: 0 auto;
+	//.bc();
+}
+
+.title{
+	@h:62px;
+	@border_color:#d0d0d0;
+	height: @h;
+	line-height: @h;
+	border-top: solid 1px @border_color;
+	margin-top: 20px;
+
+	h3{
+		font-size: 22px;
+		color: #575757;
+		font-weight: normal;
+		// font: 22px/@h;
+		width: 106px;
+		border-top:solid 2px #f97374;
+		margin-top: -1px;
+		position: relative;
+		float:left;
+		height: @h - 1;
+	}
+	
+	@color:#575757;
+	//note "&"
+	&_nav{
+		float:right;
+		.font14;
+		li {
+			float:left;
+			color: @color;
+		}
+		a{
+			color: @color;
+			&:hover{
+				color: red;
+			}
+		}
+		span {
+			margin: 0 11px;
+		}
+	}
+} 
+
+//content
+//
+.content {
+	margin-right: -@mr;
+}
+
+@mr:32px;
+
+.item {
+	@w:130px;
+	@h:160px;
+	@img_h:78px;
+	margin-bottom: 5px;
+	float:left;
+	margin-right: @mr;
+
+	width: @w;
+	height: @h;
+
+	&_img{
+		height: @img_h;
+		width: @w;
+		// height: @h;
+		display: inline-block;
+		position: relative;
+		margin-bottom: 5px;
+
+		span{
+				position: absolute;
+				width: 35px;
+				height: 18px;
+				line-height:18px;
+				display: inline-block;
+				right: 0;
+				bottom: 0;
+				color: #fff;
+				text-align: right;
+				font-size: @fs - 2;
+			}
+
+		.cq {
+			background: url(../i/blue.png) no-repeat;
+		}
+
+		.rcq {
+			background: url(../i/red.png) no-repeat;
+		}
+	}
+
+	
+
+	&_list{
+		line-height: 22px;
+		font-size: @fs - 2;
+
+		a{
+			color: #666;
+			&:hover{
+				color: red;
+			}
+		}
+
+		.icon(){
+			padding-left: 15px;
+			margin-right: 2px;
+			color: #666;
+			padding-top: 1px;
+		}
+
+		.userName {
+			background: url(../i/1.png) no-repeat left center;
+			.icon();
+		}
+
+		.play {
+			background: url(../i/2.png) no-repeat left center;
+			.icon();
+		}
+
+		.mess {
+			background: url(../i/3.png) no-repeat left center;
+			.icon();
+		}
+
+	}
+}
+
+

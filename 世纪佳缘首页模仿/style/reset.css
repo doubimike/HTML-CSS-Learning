@@ -1,0 +1,69 @@
+/* `XHTML, HTML4, HTML5 Reset
+----------------------------------------------------------------------------------------------------*/
+a,abbr,acronym,address,article,aside,audio,b,big,blockquote,body,canvas,caption,cite,code,dd,del,details,div,dl,dt,em,fieldset,figcaption,
+figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,hr,html,i,iframe,img,ins,label,legend,li,mark,menu,nav,ol,p,pre,progress,q,section,
+small,span,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,tr,ul,var,video{border: 0;margin: 0;padding: 0;}
+html,body {font-size: 100%;height: 100%;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;}
+/* For HTML5 */
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {display: block;}
+b,strong {
+/*
+  IE + Opera = font-weight: bold.
+  Gecko + WebKit = font-weight: bolder.
+*/
+  font-weight: 700;
+}
+img {color: transparent;font-size: 0;-ms-interpolation-mode: bicubic;}
+ol,ul {list-style: none;}
+li {
+/* For IE6 + IE7 */
+  display: list-item;
+}
+body,button,input,select,textarea{font: 12px/1.5 Tahoma,Arial,\5b8b\4f53;color: #333;}
+input,select,textarea{font-size: 100%;}
+/*table {border-collapse: collapse;border-spacing: 0;}*/
+th,td,caption {font-weight: normal;text-align:left;}
+address,caption,cite,code,em,th,var {font-style:normal;	font-weight:500;}
+h1,h2,h3,h4,h5,h6 {font-size:100%;font-weight:500;}
+q {quotes: none;}
+q:before,q:after {content: '';content: none;}
+sub,sup,small {font-size: 75%;}
+sub,sup {line-height: 0;position: relative;vertical-align: baseline;}
+sub {bottom: -0.25em;}
+sup {top: -0.5em;}
+svg {
+/* For IE9 */
+  overflow: hidden;
+}
+.fontYH{font-family:\5fae\8f6f\96c5\9ed1;font-family:"Microsoft YaHei" !important;}
+/* 清除浮动  */
+.fn-clear:before,.fn-clear:after{content:"";display:table;}
+.fn-clear:after{clear:both;}
+.fn-clear{zoom:1;}
+.fn-left,.fn-right{display: inline;}
+.fn-left{float: left;}
+.fn-right{float: right;}
+.fn-hide{display: none;}
+.fn-show{display: block;}
+/* 主要字体颜色  */
+.color333{color: #333;}
+.color666{color: #666;}
+.color999{color: #999;}
+.color2C81D6{color: #2C81D6;}
+.colorE7417F{color: #E7417F;}
+/* 链接状态  */
+.ui-link-underline a{text-decoration: underline;}
+.ui-link-underline a:hover{text-decoration: underline;}
+.ui-link-Nounderline a{text-decoration: none;}
+.ui-link-Nounderline a:hover{text-decoration: underline;}
+/* 链接颜色  */
+.ui-link-333toE7417F a{color: #333;}
+.ui-link-333toE7417F a:hover{color: #E7417F;}
+.ui-link-666toE7417F a{color: #666;}
+.ui-link-666toE7417F a:hover{color: #E7417F;}
+.ui-link-999toE7417F a{color: #999;}
+.ui-link-999toE7417F a:hover{color: #E7417F;}
+.ui-link-2C81D6toE7417F a{color: #2C81D6;}
+.ui-link-2C81D6toE7417F a:hover{color: #E7417F;}
+.ui-link-E7417FtoE7417F a{color: #E7417F;}
+.ui-link-E7417FtoE7417F a:hover{color: #E7417F;}

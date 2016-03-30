@@ -1,0 +1,166 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+ul {
+	list-style: none;
+}
+
+
+a {
+	text-decoration: none;
+	color: #313131;
+}
+
+a:hover {
+	color: red;
+	text-decoration: underline;
+}
+
+.nav {
+	border: 2px solid #d34337;
+	width: 220px;
+	margin: 20px;	
+}
+
+.nav-head {
+	background: #d34337;
+	color: #fff;
+	line-height: 40px;
+	text-indent: 20px;
+	font-size: 11pt;
+	font-weight: bold;
+}
+
+.nav li {
+	height: 30px;
+	line-height: 30px;
+	padding-left: 5px;
+	background: url(jt.gif) no-repeat 95% center;
+	position:relative;
+	z-index: 9;
+}
+
+
+.nav li:hover {
+	height: 60px;
+	border-left: 2px solid red;
+	border-bottom: 1px solid #ccc;
+	border-top: 1px solid #ccc;
+	box-shadow: 1px 0px 8px #ccc;
+	background: none;
+}
+
+.nav li:hover > span {
+	height: 100%;
+	width: 10px;
+	background: #fff;
+	position:absolute;
+	top: 0;
+	right: 0;
+	z-index: 999;
+}
+
+.nav li:hover > a {
+	color: red;
+}
+
+.nav li:hover .pop{
+	display: block;
+}
+
+.pop {
+	position: absolute;
+	left: 215px;
+	top: -20px;
+	width: 720px;
+	padding: 5px 3px;
+	border: 1px solid #ccc;
+	box-shadow: 0 0 8px #ccc;
+	display: none;
+	z-index: 99;
+	background: #fff;
+}
+
+.leftArea{
+	width: 490px;
+	padding-bottom: 20px;
+	float:left;
+	padding-top: 10px;
+}
+
+.rightArea{
+	width: 210px;
+	float:right;
+	padding-top: 10px;
+}
+
+.leftArea dl {
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 5px;
+	padding-top: 10px;
+}
+
+.leftArea dt {
+	float:left;
+	width: 75px;
+	line-height: 22px;
+	text-align: right;
+	padding-right: 5px;
+}
+
+.sub-items {
+	width: 410px;
+	float:right;
+	line-height: 22px;
+}
+
+
+.leftArea dl dt a{
+	font-weight: bold;
+	text-align: right;
+	color: red;
+	text-decoration: underline;
+	font-size: 16px;
+}
+
+.leftArea dl dd {
+	display: inline-block;
+}
+.leftArea dl dd a {
+	padding: 0 6px;
+	font-size: 14px;
+	border-left: 1px solid #ccc;
+	color: #737373;
+}
+
+.rightArea .img {
+	text-align: center;
+	
+}
+
+.rightArea .img img {
+	vertical-align: middle;
+}
+
+.rightArea .f-img {
+	position:absolute;
+	right: -10px;
+	bottom: -20px;
+	text-align: center;
+}
+
+.rightArea  dl {
+	padding: 20px 10px;
+}
+.rightArea dt {
+	color: red;
+	font-weight: bold;
+	padding-bottom: 5px;
+}
+.rightArea dd {
+	font-size: 14px;
+	color: #737373;
+	line-height: 20px;
+}

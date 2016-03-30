@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>CSS3实现简单的动态效果</title>
+	<style>
+		* {
+			margin: 0;
+			padding:0;
+		}
+		.demo, .img, .mask, .border {
+			width:300px;
+			height:300px;
+			border-radius:50%;
+		}
+
+		.demo {
+			position:relative;
+			display:block;
+		}
+
+		.img {
+			background-size: cover;
+			background-position: center center;
+		}
+
+		.img, .border, .mask {
+			position:absolute;
+			left:0;
+			top:0;
+		}
+
+		.mask {
+			text-align:center;
+			transition: all 1s ease;
+		}
+
+		.info {
+			margin-top: 50%;
+			transform: translateY(-50%);
+		}
+
+		.border {
+			border:10px solid #072256;
+			border-left-color: #e07514;
+			border-top-color: #e07514;
+			box-sizing: border-box;
+			transition: all 1s ease;
+		}
+
+		.demo:hover	.mask {
+			background-color: rgba(0, 0, 0, 0.5);
+			color: rgba(255, 255, 255, 1);
+		}
+
+		.demo:hover	.border {
+			transform: rotate(180deg);
+		}
+	</style>
+</head>
+<body>
+	<a href="" class="demo">
+		<div class="img" style="background-image:url(img/img.jpg)"></div>
+		<div class="mask">
+		<div class="info">
+			<h3>BEAUTIFUL DAY</h3>
+			<p>Hello World</p>
+		</div>
+		</div>
+		<div class="border"></div>
+	</a>
+</body>
+</html>

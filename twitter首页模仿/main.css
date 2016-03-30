@@ -1,0 +1,239 @@
+/*reset*/
+ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+/*library*/
+.b {
+	font-family:Georgia,serif;
+	font-weight: bold;
+}
+
+.l {
+	float: left
+}
+
+.r {
+	float:right;
+}
+
+.f0 {
+	font-size: 0;
+}
+
+.f15 {
+	font-size: 15px;
+}
+
+.f12 {
+	font-size: 12px;
+}
+
+.i {
+	font-style: italic;
+}
+
+.p10 {
+	padding: 10px;
+}
+
+.p20 {
+	padding: 20px;
+}
+
+.pl0 {
+	padding-left: 0;
+}
+
+.mt0 {
+	margin-top: 0;
+}
+
+.mb10 {
+	margin-bottom: 10px;
+}
+
+.rel {
+	position:relative;
+}
+
+.abs {
+	position:absolute;
+}
+
+.dib {
+	display: inline-block;
+}
+
+.db {
+	display: block;
+}
+
+.vt {
+	vertical-align: top;
+}
+
+.vm {
+	vertical-align: middle;
+}
+
+.ovh {
+	overflow: hidden;
+}
+
+.bsb {
+	box-sizing: border-box;
+}
+
+.cc {
+	color: #ccc;
+}
+
+/*layout*/
+.inner {
+	min-width: 770px;
+	max-width: 1000px;
+	margin: 0 auto;
+}
+
+.l-area, .r-area {
+	display: inline-block;
+	min-height: 700px;
+	vertical-align: top;
+	box-sizing: border-box;
+}
+
+.l-area {
+	width: 70%;
+	background: #fff;
+}
+
+.r-area {
+	width: 30%;
+	background: #dcffca;
+	border-left: 1px solid #bcddab;
+}
+
+/*general*/
+body {
+	padding: 80px 0;
+	background: url(img/test_bg.jpg) no-repeat fixed;
+}
+
+a {
+	color: #0083b6;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+/*main*/
+/*l-area*/
+/*update-box*/
+.doing {
+	letter-spacing: -1px;
+}
+
+.update-input .textarea {
+	width: 100%;
+	margin-bottom:5px;
+}
+
+.update-input .max-char {
+	position:absolute;
+	right: 0;
+	bottom: 105%;
+	font-size: 20px;
+	color: #ccc;
+	font-family:Georgia,serif;
+	font-weight:bold;
+}
+
+.latest-status {
+	width: 75%;
+	color: #666;
+	font-size: 12px;
+}
+
+.update-btn {
+	width: 100px;
+	height:30px;
+	border-radius: 3px;
+	background: #f2f2f2;
+	color: #666;
+	cursor: pointer;
+	border: 1px solid #ccc;
+}
+
+.update-btn:hover {
+	background: #dfdfdf;
+	color: #555;
+}
+
+/*status-list-box*/
+.word-home {
+	margin-bottom: 3px;
+}
+
+.status-list li {
+	border-top: 1px dashed #ccc;
+	min-height: 68px;
+}
+
+.user-head {
+	padding: 10px;
+	margin: 0;
+	font-size: 0;
+}
+
+.status-cont {
+	margin-left: 68px;
+	padding: 10px 10px 10px 0;
+}
+
+.update-info,
+/*a*/.update-time {
+	font-family:Georgia,serif;
+	color: #999;
+}
+
+/*r-area*/
+.user-info .user-head {
+	padding-left: 0;
+}
+
+.following, .follower, .total-status {
+	margin-right:3px;
+	font-size: 12px;
+	min-width: -webkit-fit-content;
+	min-width: -moz-fit-content;
+
+}
+
+.follow-num {
+	font-family: Georgia,serif;
+	font-size: 14px;
+}
+
+.r-nav a {
+	display: block;
+	text-decoration: none;
+	padding: 5px 0 5px 10px;
+}
+
+.r-nav /*a*/.active {
+	color: #333;
+}
+
+.r-nav a:hover,
+.active {
+	background: #edffdb;
+}
+
+
+
+
