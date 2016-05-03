@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="js/html5shiv.js"></script>
+	<link rel="stylesheet" href="main.css">
+</head>
+<body>
+	<header>	
+		<div class="wd900 topheight"> <!-- div for layout -->
+			<div class="l">
+				<a href="/">
+					<img src="img/logo_with_slogan26052b.png" alt="企业邮箱首页" class="qqmaillogo sloganlogo">
+				</a>
+			</div>
+
+			<nav class="nav-header top-link r ">
+					<a href="#" target="_blank">新用户注册</a><span> | </span> 
+					<a href="#" target="_blank">客户端收发</a><span> | </span> 
+					<a href="#" onclick="JumpToEng()">English</a><span> | </span> 
+					<a href="#" onclick="SetHomeLang('zh_TW');">繁体版</a><span> | </span> 
+					<a href="#" target="_blank">企业QQ用户</a>
+			</nav>
+		</div>
+	</header>
+		
+	<main class="login-wrap">
+		<div class="wd810">
+			<form action="/" method="post" name="form1" onsubmit="return checkInput();">
+
+				<div class="login-panel">
+					<div class="title">登录企业邮箱</div>
+
+					<div class="input-box">
+						<input class="db" type="text" placeholder="邮箱帐号/管理员帐号">
+
+						<p class="annotation">请填写企业邮箱的完整帐号，或管理员帐号</p>
+
+						<input class="db" type="text" placeholder="密码">
+						
+						<div class="auto-login">
+							<input type="checkbox" id="auto-login"> <label for="auto-login">5天内自动登录</label>
+						</div>	
+
+						<button class="btn-login">登 录</button>
+
+						<div class="pw-related"><img src="img/lock_new25de0f.png" alt="https"><span class="https"> 正在使用https方式登录</span><a href="#" class="forget-pw r">忘记密码？</a></div>
+					</div>
+				</div> <!--  end of login-box -->
+
+				<div class="qrscan-panel">
+					<div class="title">微信扫描登录</div>
+
+					<div class="wx-login-wrap">
+						<iframe src="qr-scan.html" width="300" height="400" style="border: 0;"></iframe>
+					</div>
+
+				</div>
+
+				<div class="middle-line"></div>
+
+			</form>
+		</div>
+	</main>
+
+	<footer class="tc">
+		<div class="wd">
+			<nav class="nav-page-bottom">
+				<a href="#">关于腾讯</a> <span>|</span> 
+				<a href="#">服务条款</a> <span>|</span> 
+				<a href="#">帮助中心</a> <span>|</span> 
+				<a href="#">用户手册</a> <span>|</span> 
+				<a href="#">合作加盟</a>
+			</nav>
+
+			<div class="copyright c-light">
+				© 1998 - 2016 Tencent Inc. All Rights Reserved
+			</div>
+		</div>
+	</footer>
+</body>
+</html>
